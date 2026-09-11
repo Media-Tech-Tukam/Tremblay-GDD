@@ -13,6 +13,7 @@ Elaborado por los **muiscas** para contener las lágrimas de **Fura** — las es
 - **Función narrativa, no mecánica de juego.** Cómo se activa exactamente el poder (con solo poseerlo o al abrirlo, si es literal o simbólico) **no es relevante** y se deja fuera de cámara a propósito. Lo que importa es el peso argumental: el cofre define motivaciones (por qué el Capitán, Gorrión, y el vecino actual hacen lo que hacen) y sirve de vehículo para que el jugador descubra, junto con los Tremblay, el mito de Fura y Tena y la cultura muisca — coherente con el pilar educativo del resto del juego (inmersión lingüística → ahora también inmersión mitológica/cultural).
 - **Origen físico de la piedra — deliberadamente fuera de cámara.** Cómo llegó la esmeralda de las minas muiscas del interior hasta manos de la tripulación de Cogollo no se cuenta ni importa para la historia que ve el jugador. La historia del Capitán que el jugador presencia **empieza el día del asedio fallido**, no antes. Es una decisión de diseño, no un vacío por llenar: cada jugador puede deducir su propia lectura de cómo y cuándo llegó el cofre a la tripulación.
 - **Ambigüedad mágica.** Se mantiene por defecto el mismo principio que rige toda la franquicia (ver la regla del dron de Julien): el juego no confirma ni niega si la maldición es sobrenatural literal o si es el peso psicológico de la inmortalidad lo que corrompe siempre a alguien cercano. Étienne tendría la lectura racional; Éliane, la mágica.
+- **Pista ambigua en Cogollo mismo.** Su juventud atípica como capitán corsario (25 años) y, sobre todo, su longevidad atípica al morir (80 años, ver §2.1) nunca se explican en el juego — pero son exactamente el tipo de detalle que un jugador atento puede conectar con su cercanía al cofre durante los años en que su tripulación lo tuvo a bordo, antes de la traición. El juego no lo confirma ni lo niega: es una satisfacción reservada para quien conecta los puntos por su cuenta.
 
 ---
 
@@ -26,6 +27,22 @@ No son héroes: son ladrones y saqueadores, como muchos en la época de la colon
 - **Rango:** Capitán corsario al servicio de la Corona española. No es oficial de uniforme reglamentario — tiene patente real que le permite operar su propio barco, liderar su propia tripulación y vestir a su manera (de ahí su look "pirata" sin contradecir que sirve a España).
 - **Función oficial:** escoltar cargamentos de oro y piedras preciosas desde el interior de Colombia hasta el puerto de Cartagena, y defender la costa cuando la Corona lo requiere.
 - **Doble vida:** mientras cumple su función oficial, lleva años acumulando en secreto un botín propio (oro, piedras preciosas) escondido en una cadena de cavernas bajo el Fuerte San Felipe — cavidades que quedaron de la propia construcción del fuerte. El plan: escapar de Cartagena con ese botín en un barco propio, escondido y cargado, listo para zarpar.
+
+**Cronología de edades (supuestos de trabajo):**
+
+| Año | Edad | Evento |
+|---|---|---|
+| 1716 | — | Nace |
+| 1741 | 25 años | Día del asedio inglés a Cartagena |
+| 1756 | 40 años | Regresa disfrazado de aristócrata (15 años después) |
+| 1756–1776 | 40–60 años | Dos décadas dedicadas a la búsqueda del cofre en los tres frentes (§4) |
+| 1776 | 60 años | Se rinde y se casa |
+| c. 1778 | 62 años | Nace su primer descendiente |
+| 1796 | 80 años | Muere |
+
+25 años es joven para un capitán corsario, pero no implausible — a diferencia de un oficial naval de carrera, la patente de corsario se obtenía por conexiones, capital propio o un golpe de reputación puntual, no por ascenso institucional. 80 años es notablemente longevo para el siglo XVIII (la esperanza de vida promedio rondaba los 30-40, muy inflada a la baja por la mortalidad infantil), pero no imposible para alguien de recursos — y aquí además es una pista deliberadamente ambigua (ver §1). Ninguno de los dos datos se ajusta por conveniencia: ambos se dejan así a propósito.
+
+**Generaciones hasta Lucía.** De 1778 (nacimiento del primer descendiente) a Lucía —nacida hacia 1981-1983 para tener unos 43-45 años en 2026, coherente con ser madre de Éliane (16) y Julien (12)— hay unos 204 años. Con un promedio histórico de generación de ~25 años (más corto en los siglos XVIII-XIX), eso da **entre 8 y 9 generaciones**. Esto encaja sin fricción con lo ya establecido en el GDD: la abuela de Lucía es colombiana y la madre de Lucía nació en Canadá — la emigración de la familia ocurre justo en la generación de la abuela; todas las generaciones anteriores permanecen en Cartagena. El "último pariente" que le escribe la carta del Nivel 01 (ver historia jugable, §5, Nivel 01) desciende de esa rama que nunca emigró, y se extingue sin herederos directos, dejándole la casona a Lucía como pariente viva más próxima.
 
 ### José Gorrión — el segundo al mando
 
@@ -68,9 +85,19 @@ No pudo desaparecer como Cogollo: quedó visible ante la sociedad de Cartagena t
 
 ### Rodrigo Cogollo
 
-Regresa años después bajo una identidad nueva, disfrazado de rico forastero/aristócrata — no puede usar su nombre real sin levantar sospechas. Compra la casona (estratégicamente ubicada en la ciudad amurallada, cerca del fuerte) y, usando su fortuna, funda una empresa constructora propia para reabrir caminos hacia la bóveda. Financia la construcción de la **Casa de la Inquisición** y el **Convento de la Popa** como tapadera para conseguir mano de obra y acceso técnico.
+Regresa años después bajo una identidad nueva, disfrazado de rico forastero/aristócrata — no puede usar su nombre real sin levantar sospechas.
 
-Coordina todo desde un **estudio secreto bajo la fuente de las sirenas**, en el patio de la casona, donde documenta absolutamente todo: su vida, el cofre, los túneles, la bóveda, y las trampas que él mismo y su tripulación original habían instalado años atrás (las documenta porque ahora necesita atravesarlas él mismo sin morir en su propia trampa).
+**La geografía real de las cavernas.** La cadena de cavernas que su tripulación usaba es mucho más amplia de lo que parecía al principio: tiene una entrada por el **Cerro de la Popa**, pasa por debajo de la bahía, y conecta en línea casi recta **La Popa — Fuerte San Felipe (en el medio) — la zona del Palacio de la Inquisición**. Esto le da a Cogollo tres frentes posibles de acceso, no uno solo.
+
+**Primer intento — La Popa.** Es la ruta más discreta, así que la prueba primero. Ofrece a los monjes agustinos recoletos que administran el convento financiar una capilla o extensión, con la excusa de la fe, para tener excusa de estar ahí y excavar hacia las cavernas. Aprovecha y alimenta una leyenda real de la zona —la de **"la Sarnosa"**, la monja fantasma expulsada del convento que vaga en pena— para mantener alejados a los curiosos durante sus trabajos nocturnos. Por su edad o por el deterioro del paso con el tiempo, esta vía **no da resultado**: no logra sortear los desafíos internos de las cavernas desde ese lado.
+
+**Segundo intento — el Palacio de la Inquisición.** Sabiendo que la cadena de cavernas recorre todo el trayecto, traslada el esfuerzo a la obra en curso del Palacio —cuya construcción real llevaba décadas y no terminaría hasta 1770, así que su aporte se camufla sin problema entre 1741 y esa fecha— para abrirse paso desde ahí.
+
+**La casona, comprada a propósito.** Compra la gran casona cercana —dentro del mismo entramado de la ciudad amurallada— específicamente para tener una base cómoda y permanente desde la cual explorar el camino hacia la bóveda con calma, sin depender solo de las otras dos obras.
+
+**El equipo de confianza.** Ningún trabajo en tres frentes distintos, sostenido durante años, lo puede hacer un solo hombre. Cogollo recluta un grupo de confianza, empezando por un **mestizo** capataz/lugarteniente leal —esta vez sin traición— cuyos descendientes terminan siendo, generaciones después, los **mayordomos** que hoy sirven en la casona. Los mayordomos actuales solo conservan esto como anécdota familiar ("la familia siempre ha servido a esta casa"), sin conocer la verdad completa, pero son una fuente de pistas orales que la familia Tremblay puede seguir en el presente.
+
+Coordina todo desde un **estudio secreto bajo la fuente de las sirenas**, en el patio de la casona, donde documenta absolutamente todo: su vida, el cofre, los túneles, la bóveda, y las trampas que él mismo y su tripulación original habían instalado años atrás (las documenta porque ahora necesita atravesarlas él mismo sin morir en su propia trampa). Ahí guarda también una **réplica del cofre** que él mismo mandó hacer: una figura de forma humanoide al estilo muisca —evocando los tunjos, las pequeñas figuras votivas antropomorfas muiscas— tallada de memoria, ya que nunca recuperó el original. Es lo primero que le llama la atención a Lucía cuando la familia descubre el cuarto en el Nivel 03.
 
 Pasa años revisando naufragios, cuerpos y documentos **buscando la llave de Gorrión** — sin saber que Gorrión sobrevivió, vivió su vida pública en Cartagena, y que su llave siguió intacta en manos de su familia todo ese tiempo. Es una búsqueda condenada desde el principio: busca en el fondo del mar algo que estaba a plena vista, a pocas cuadras de distancia.
 
@@ -78,7 +105,20 @@ Pasa años revisando naufragios, cuerpos y documentos **buscando la llave de Gor
 
 ---
 
-## 5. La visión de Lucía — por qué la ve Gorrión, no Cogollo
+## 5. El secreto de familia — por qué se guarda con tanto cuidado
+
+No es solo un mapa del tesoro lo que hay que proteger. El cuarto secreto revela algo que dañaría directamente el nombre de la familia si saliera a la luz: **Cogollo, mientras servía oficialmente a la Corona española como capitán corsario, planeaba desertar y huir con un botín propio** —una traición a la Corona, no solo un golpe de suerte pirata—, y ese botín se nutrió, en parte, de **saqueo directo a comunidades indígenas colombianas** durante sus expediciones al interior. Esto contradice de raíz la imagen de "antepasado prestante" y filántropo —financiador de un ala del Convento de la Popa, dueño de una gran casona— que la familia ha cultivado en la sociedad de Cartagena durante generaciones.
+
+**Dos niveles de conocimiento, no uno:**
+
+- **La línea directa de descendientes de Cogollo** —hasta llegar al último pariente que le escribe a Lucía en el Nivel 01— conoció siempre la verdad completa: el cuarto, el tesoro, la traición a la Corona, el saqueo. Cada generación decidió mantenerlo oculto para proteger el nombre de la familia, no solo el tesoro.
+- **Los mayordomos**, descendientes del mestizo leal que ayudó a Cogollo, solo conocen la existencia del cuarto y la instrucción de cuidarlo — una obligación heredada como deber de familia hacia familia, sin el contenido real. Custodian algo cuyo peso desconocen.
+
+Esto le da más textura a la carta del Nivel 01 (ver historia jugable, §5): el último pariente, al final de su vida, no se atreve a contar la verdad directamente —seguiría rompiendo generaciones de silencio familiar—, pero tampoco quiere que el secreto se pierda del todo. Su solución es dejar una pista mínima, casi disfrazada de ocurrencia doméstica: limpiar la fuente y sacar las ranas. Es su forma de traicionar el pacto de silencio sin tener que asumir la responsabilidad de hacerlo abiertamente.
+
+---
+
+## 6. La visión de Lucía — por qué la ve Gorrión, no Cogollo
 
 Descartada la versión anterior (Cogollo encuentra el cofre al final, lo abre, y ve la visión de su tataranieta). Razones:
 
@@ -91,9 +131,11 @@ Descartada la versión anterior (Cogollo encuentra el cofre al final, lo abre, y
 - Refuerza la fama de "loco" de Gorrión — vio algo que nadie de su época podía procesar.
 - Hace que la revelación final —que esa mujer es Lucía, tataranieta de **Cogollo**, no de Gorrión— golpee con más fuerza al jugador, porque el rastro visual apuntaba primero al bando equivocado.
 
+**El retrato de los Gorrión.** Gorrión, incapaz de olvidar lo que vio, encarga —ya en su vida pública, antes de morir joven— un retrato que intenta capturar la visión: una mujer con ropa que a ojos del siglo XVIII resulta casi "futurista", sosteniendo una escultura indígena entre las manos. El cuadro pasa de generación en generación en la familia Gorrión como una curiosidad familiar que nadie sabe explicar del todo — hasta que Julien lo encuentra en el Nivel 05 y la familia reconoce en él, con escalofrío, la misma imagen exacta de Lucía sosteniendo la réplica del cofre en el Nivel 03 (ver historia jugable, §5). Es la prueba física que confirma que el vecino desciende de Gorrión, y el primer indicio real —todavía sin explicación— de que la visión del pasado y el presente son la misma escena.
+
 ---
 
-## 6. El clímax — las dos llaves, siglos después
+## 7. El clímax — las dos llaves, siglos después
 
 Las dos llaves nunca dejaron de servir — el candado nunca estuvo roto, solo separado:
 
@@ -104,7 +146,7 @@ En el Nivel 10, cuando la familia y el vecino resuelven juntos el acertijo de la
 
 ---
 
-## 7. Las trampas y el interior de la bóveda — lo que el jugador descubre jugando
+## 8. Las trampas y el interior de la bóveda — lo que el jugador descubre jugando
 
 Nada de esto se narra en las cinemáticas — son datos que el jugador recolecta, encuentra o deduce mientras explora los túneles (Niveles 07–09), como storytelling ambiental y objetos de investigación, no como exposición directa.
 
@@ -128,7 +170,7 @@ Todo esto debería quedar también documentado en el estudio secreto de Cogollo 
 
 ---
 
-## 8. Cambios sobre el guion de cinemáticas existente
+## 9. Cambios sobre el guion de cinemáticas existente
 
 El GDD actual (`index.html`, sección Cinemáticas) tiene 6 piezas escritas. Con esta historia, quedan así:
 
@@ -141,13 +183,14 @@ El GDD actual (`index.html`, sección Cinemáticas) tiene 6 piezas escritas. Con
 | **5. El barco** | Reescritura del final | Cogollo llega lo más cerca que puede del sistema original — y descubre que, sin la segunda llave, **no hay forma humana de entrar**. Es su derrota final, no un hallazgo triunfal. **Se elimina al personaje del mestizo** — ya no tiene participación en la historia. |
 | **6. El cofre esmeralda** | Repropósito completo | Ya no muestra al Capitán abriendo el cofre (eso nunca vuelve a pasar). Pasa a ser el **cierre humano de Cogollo**: se rinde, se casa, funda la línea que llega a Lucía. La "carta" para su tataranieta ya no aparece dentro del cofre — es parte de lo que documentó en su estudio secreto, y llega a los Tremblay como parte del diario que ya vienen leyendo desde el Nivel 03. |
 
-### Elemento eliminado
+### Elemento eliminado — y su reemplazo
 
-- **El mestizo** (ficha de Personajes → Antagonistas → "El mestizo") se elimina por completo. Ya no tiene función narrativa: la derrota de Cogollo viene de la imposibilidad física del triple candado, no de una segunda traición.
+- **El mestizo antagonista** (ficha de Personajes → Antagonistas → "El mestizo", el que traicionaba a Cogollo frente al barco) se elimina por completo. Ya no tiene función narrativa: la derrota de Cogollo viene de la imposibilidad física del triple candado, no de una segunda traición.
+- **En su lugar aparece un mestizo distinto, leal, sin relación con aquel.** Es el capataz/lugarteniente de confianza que ayuda a Cogollo en sus tres frentes de búsqueda (§4). No es un antagonista — es un aliado que nunca traiciona, y su lealtad es lo que lo distingue del personaje eliminado. Su descendencia se convierte en los **mayordomos** que sirven hoy en la casona (ver §10).
 
 ---
 
-## 9. Conexiones con el presente que esto resuelve
+## 10. Conexiones con el presente que esto resuelve
 
 - **Por qué el vecino se apellida Gorrión y tiene una llave** — heredada directamente de José Gorrión, junto con el conocimiento del tesoro que hizo próspera a su familia.
 - **Por qué existe el "acertijo de las dos llaves" en el Nivel 10** sin explicación previa en el GDD — son las llaves originales de Cogollo y Gorrión.
@@ -155,10 +198,18 @@ El GDD actual (`index.html`, sección Cinemáticas) tiene 6 piezas escritas. Con
 - **Por qué muchas trampas en los túneles (Niveles 07–09) están documentadas y no son ruinas naturales** — Cogollo las registró todas en su estudio para no morir en sus propias trampas mientras buscaba reabrir el camino.
 - **Por qué el "antepasado prestante" que construyó la casona y financió un convento era en realidad un pirata** (ya insinuado como pendiente en el GDD) — es Cogollo, confirmado.
 - **De dónde sale la "carta" que llega a Lucía** — del estudio/diario de Cogollo, no de un hallazgo mágico de último minuto dentro del cofre.
+- **Por qué el mayordomo y su familia sirven en la casona desde hace generaciones** — descienden del mestizo leal que ayudó a Cogollo en su búsqueda; hoy solo conservan la anécdota de que "la familia siempre ha servido a esta casa", sin saber la historia completa.
+- **Por qué existe una leyenda de fantasma en el Cerro de la Popa** — es una leyenda real de Cartagena (la Sarnosa, monja expulsada del convento) que Cogollo aprovechó y alimentó para trabajar de noche sin curiosos cerca.
+- **Por qué el secreto se guardó con tanto celo durante 250 años** — no es solo un tesoro que proteger, es una reputación familiar de filantropía que se derrumbaría si se supiera que Cogollo planeaba desertar de la Corona y que su fortuna incluye saqueo directo a comunidades indígenas (§5).
+- **Por qué la carta del último pariente es tan indirecta** — no rompe el silencio familiar abiertamente; deja apenas una pista disfrazada de ocurrencia doméstica (§5).
+- **Por qué hay un cuadro del asedio de 1741 colgado en la propia casona, con una marca tallada en el marco** — Cogollo lo mandó pintar y colgar como un recordatorio privado de la noche que fingió su muerte, y aprovechó el marco para esconder la misma marca que usó en los túneles y en la Casa de la Inquisición — otra pieza más de lo que documentó para quien supiera mirar con atención.
+- **Por qué "limpiar la fuente de las sirenas" es una frase tan específica y se repite igual en la carta y en la reacción de los mayordomos** — no es una ocurrencia puntual del último pariente: es un código heredado de generación en generación entre los guardianes de la casona, que reconocen la frase como la señal de que un nuevo descendiente legítimo ha llegado a tomar el relevo.
+- **Por qué son los Tremblay, y no la propia línea de Cogollo, quienes dan con el tesoro** — la descendencia de Cogollo cuidó el cuarto secreto durante 250 años como una obligación de familia, sin ponerlo nunca a prueba con ojos de historiador. La leyenda familiar exagera el papel del antepasado (dice que "fundó" el Convento de la Popa, que en realidad existe desde 1607). Es Étienne, con su ojo para la nota al margen y sin ningún apego sentimental al mito familiar, quien detecta esa inconsistencia histórica y tira del hilo hasta la entrada de las cavernas — algo que generaciones de guardianes silenciosos nunca hicieron.
+- **Por qué el vecino ya rondaba la casona antes de que llegaran los Tremblay** — las dos familias (línea de Cogollo y línea de Gorrión) han estado en tensión discreta, sin violencia, durante generaciones. El vecino, presentado como restaurador y amante del arte y la historia, **ya había intentado comprarle la casona a la última dueña** —la misma pariente lejana que le escribe la carta a Lucía en el Nivel 01, y que confirmamos aquí que es una mujer— y hay incidentes previos de él merodeando la propiedad. Los mayordomos lo saben desde siempre, y por eso reaccionan con tanta cautela desde su primera aparición.
 
 ---
 
-## 10. Pendiente / a definir en una próxima sesión
+## 11. Pendiente / a definir en una próxima sesión
 
 - Redactar el guion final (beats + diálogos) de las Cinemáticas 1, 2, 5 y 6 con los ajustes de este documento.
 - Decidir en qué nivel exacto se revela al jugador que la mujer de la visión de Gorrión es Lucía (climático, probablemente Nivel 10).
