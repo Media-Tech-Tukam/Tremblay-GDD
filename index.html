@@ -1,0 +1,1742 @@
+<title>Cofre Esmeralda GDD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght,SOFT@9..144,400..800,0&family=Archivo:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#EFF3EF;
+  --surface:#FBFCFA;
+  --surface-2:#F4F7F3;
+  --ink-900:#101A17;
+  --ink-700:#2E3E37;
+  --ink-500:#5B6B63;
+  --ink-400:#7C8C84;
+  --rule:#D6DED8;
+  --rule-soft:#E4EAE5;
+  --esm:#0B7A5B;
+  --esm-ink:#075744;
+  --esm-soft:#DCEDE4;
+  --lat:#A2652A;
+  --lat-soft:#F2E4D2;
+  --ind:#2C4A6E;
+  --ind-soft:#DDE6F0;
+  --shadow:0 1px 2px rgba(16,26,23,.05), 0 8px 24px -16px rgba(16,26,23,.22);
+
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --title:'Anton', 'Archivo Black', Impact, 'Arial Narrow Bold', sans-serif;
+  --body:'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  --measure:68ch;
+  --sidebar:264px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1411;
+    --surface:#131C18;
+    --surface-2:#18221E;
+    --ink-900:#E9F0EB;
+    --ink-700:#C0CDC6;
+    --ink-500:#93A29A;
+    --ink-400:#7A8981;
+    --rule:#25322C;
+    --rule-soft:#1E2A25;
+    --esm:#41CE9E;
+    --esm-ink:#7EE3BE;
+    --esm-soft:#10312750;
+    --lat:#DBA268;
+    --lat-soft:#33231350;
+    --ind:#87B3E0;
+    --ind-soft:#16232F80;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1411;
+  --surface:#131C18;
+  --surface-2:#18221E;
+  --ink-900:#E9F0EB;
+  --ink-700:#C0CDC6;
+  --ink-500:#93A29A;
+  --ink-400:#7A8981;
+  --rule:#25322C;
+  --rule-soft:#1E2A25;
+  --esm:#41CE9E;
+  --esm-ink:#7EE3BE;
+  --esm-soft:#10312750;
+  --lat:#DBA268;
+  --lat-soft:#33231350;
+  --ind:#87B3E0;
+  --ind-soft:#16232F80;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink-700);
+  font-family:var(--body);
+  font-size:15.5px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--title);color:var(--ink-900);text-wrap:balance;font-weight:400;line-height:1.05;margin:0}
+p{margin:0}
+a{color:var(--esm-ink);text-decoration-color:color-mix(in srgb, var(--esm) 40%, transparent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--esm);outline-offset:3px;border-radius:3px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);gap:0;max-width:1320px;margin:0 auto}
+.rail{
+  position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  padding:30px 22px 60px 26px;border-right:1px solid var(--rule);
+  background:var(--paper);
+}
+.rail__brand{font-family:var(--title);font-size:17px;font-weight:400;line-height:1.15;color:var(--ink-900);letter-spacing:0}
+.rail__brand em{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--esm-ink);margin-top:8px;font-weight:600}
+.rail nav{margin-top:26px;display:flex;flex-direction:column;gap:2px}
+.rail__grp{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-400);margin:18px 0 6px}
+.rail a{display:block;padding:3px 0 3px 11px;border-left:2px solid transparent;color:var(--ink-500);text-decoration:none;font-size:13.4px;line-height:1.45}
+.rail a:hover{color:var(--ink-900)}
+.rail a.on{color:var(--esm-ink);border-left-color:var(--esm);font-weight:600}
+.main{padding:0 40px 140px;min-width:0}
+.wrap{max-width:var(--measure)}
+.wide{max-width:min(880px,100%)}
+
+/* ---------- cover ---------- */
+.cover{padding:76px 0 46px;border-bottom:1px solid var(--rule)}
+.cover__kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--lat);font-weight:600}
+.cover h1{font-size:clamp(38px,6vw,62px);letter-spacing:-.005em;margin:16px 0 0;max-width:15ch}
+.cover h1 span{color:var(--esm)}
+.cover__lede{margin-top:22px;max-width:56ch;font-size:17.5px;line-height:1.55;color:var(--ink-700)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin-top:44px;border-top:1px solid var(--rule)}
+.fact{padding:16px 20px 16px 0;border-right:1px solid var(--rule-soft)}
+.fact:last-child{border-right:0}
+.fact dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-400);font-weight:600}
+.fact dd{margin:6px 0 0;font-size:14.5px;color:var(--ink-900);font-weight:500}
+
+/* ---------- sections ---------- */
+section{padding-top:64px;scroll-margin-top:24px}
+.sec__head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:10px;border-bottom:2px solid var(--ink-900);margin-bottom:26px}
+.sec__num{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--esm);letter-spacing:.08em}
+.sec__head h2{font-size:27px;letter-spacing:0;flex:1}
+h3{font-size:18px;margin-top:34px;letter-spacing:0}
+h4{font-size:15px;font-family:var(--body);font-weight:700;color:var(--ink-900);margin-top:22px}
+section > .wrap > p + p, .wrap > p + p{margin-top:14px}
+.stack > * + *{margin-top:14px}
+.lede{font-size:16.5px;color:var(--ink-700)}
+
+/* ---------- chips ---------- */
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:3px;white-space:nowrap}
+.chip--ok{background:var(--esm-soft);color:var(--esm-ink)}
+.chip--wip{background:var(--lat-soft);color:var(--lat)}
+.chip--todo{background:var(--ind-soft);color:var(--ind)}
+.chip--new{background:transparent;color:var(--lat);border:1px dashed var(--lat)}
+
+/* ---------- lists ---------- */
+ul.plain{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+ul.plain > li{padding-left:17px;position:relative}
+ul.plain > li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1.5px;background:var(--esm)}
+ul.plain strong{color:var(--ink-900)}
+ol.flow{list-style:none;counter-reset:f;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
+ol.flow > li{counter-increment:f;padding-left:32px;position:relative}
+ol.flow > li::before{content:counter(f,decimal-leading-zero);position:absolute;left:0;top:.1em;font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ink-400)}
+
+/* ---------- pillars ---------- */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;margin-top:20px;border-top:1px solid var(--rule)}
+.pillar{padding:20px 22px 22px 0;border-right:1px solid var(--rule-soft)}
+.pillar:last-child{border-right:0;padding-right:0}
+.pillar h4{margin:0 0 8px;font-family:var(--title);font-size:15.5px;font-weight:400}
+.pillar p{font-size:13.8px;line-height:1.55;color:var(--ink-500)}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin-top:18px;border:1px solid var(--rule);border-radius:5px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.8px;min-width:520px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-400);font-weight:600;text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-700)}
+tr:last-child td{border-bottom:0}
+td strong{color:var(--ink-900)}
+td.mono{font-family:var(--mono);font-size:11.5px;color:var(--ink-500);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* ---------- loop ---------- */
+.loop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}
+.loop__step{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:9px 13px;font-size:13px;color:var(--ink-900);font-weight:500}
+.loop__step b{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--esm);font-weight:600;margin-bottom:3px}
+.loop__arw{color:var(--ink-400);font-size:13px}
+.loop__back{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--lat);border:1px dashed var(--lat);border-radius:4px;padding:8px 12px}
+
+/* ---------- vocab demo ---------- */
+.vocab{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-top:20px}
+.vocab__col{background:var(--surface);padding:18px 20px}
+.vocab__col h4{margin:0 0 12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
+.vocab__col:first-child h4{color:var(--esm-ink)}
+.vocab__col:last-child h4{color:var(--lat)}
+.vocab__pair{font-family:var(--display);font-size:17px;font-variation-settings:'SOFT' 0;color:var(--ink-900);line-height:1.5}
+.vocab__pair span{color:var(--ink-400)}
+.vocab__col:last-child .vocab__pair{color:var(--ink-500);font-style:italic}
+.vocab__note{margin-top:12px;font-size:12.5px;color:var(--ink-500);line-height:1.5}
+
+/* ---------- cast ---------- */
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:17px 19px;box-shadow:var(--shadow)}
+.card h4{margin:0;font-family:var(--title);font-size:15.5px;font-weight:400}
+.card__role{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--esm);font-weight:600;margin-top:5px;display:block}
+.card p{margin-top:10px;font-size:13.4px;line-height:1.55;color:var(--ink-500)}
+.card--anta .card__role{color:var(--lat)}
+.npc-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.npc{font-size:12.5px;background:var(--surface-2);border:1px solid var(--rule);border-radius:99px;padding:4px 12px;color:var(--ink-500)}
+
+/* ---------- level ---------- */
+.level{border-top:1px solid var(--rule);padding-top:26px;margin-top:34px}
+.level:first-of-type{border-top:0}
+.level__head{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.level__num{font-family:var(--mono);font-size:30px;font-weight:600;color:var(--rule);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;padding-top:2px}
+.level__id{flex:1;min-width:200px}
+.level__id h3{margin:0;font-size:22px}
+.level__meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;align-items:center}
+.level__pc{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--ind);background:var(--ind-soft);padding:4px 9px;border-radius:3px}
+.level__tag{font-size:12.5px;color:var(--ink-400)}
+.spec{margin:20px 0 0;display:grid;grid-template-columns:130px minmax(0,1fr);gap:0}
+.spec dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-400);font-weight:600;padding:13px 14px 13px 0;border-top:1px solid var(--rule-soft)}
+.spec dd{margin:0;padding:13px 0;border-top:1px solid var(--rule-soft);font-size:14px;color:var(--ink-700)}
+.spec dd ul.plain{margin-top:0}
+.spec dd ol.flow{margin-top:0}
+.spec dd > p + p{margin-top:10px}
+
+/* ---------- cinematic ---------- */
+.cine{margin-top:30px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow)}
+.cine__head{padding:17px 20px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.cine__head h3{margin:0;font-size:18px}
+.cine__no{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--lat);font-weight:600}
+.cine__obj{margin-top:9px;font-size:13.6px;color:var(--ink-500);line-height:1.55}
+.cine__mood{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.cine__mood span{font-size:11.5px;color:var(--lat);background:var(--lat-soft);border-radius:3px;padding:3px 9px}
+.beats{list-style:none;padding:0;margin:0}
+.beat{display:grid;grid-template-columns:76px minmax(0,1fr);gap:0;border-bottom:1px solid var(--rule-soft)}
+.beat:last-child{border-bottom:0}
+.beat__t{font-family:var(--mono);font-size:10.5px;color:var(--lat);font-weight:600;padding:15px 12px 15px 20px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.beat__b{padding:15px 20px 15px 0}
+.beat__b h4{margin:0 0 7px;font-size:13.5px}
+.beat__b p{font-size:13.4px;color:var(--ink-500);line-height:1.55}
+.beat__b p + p{margin-top:7px}
+.line{display:block;font-family:var(--display);font-size:15px;font-variation-settings:'SOFT' 0;color:var(--ink-900);border-left:2px solid var(--lat);padding:2px 0 2px 12px;margin-top:9px;line-height:1.5}
+.line b{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lat);display:block;font-weight:600;margin-bottom:2px}
+.audio-note{font-size:12.3px;color:var(--ink-400);margin-top:8px;font-style:italic}
+
+/* ---------- callout ---------- */
+.note{border-left:2px solid var(--esm);background:var(--esm-soft);padding:15px 18px;border-radius:0 5px 5px 0;margin-top:20px}
+.note h4{margin:0 0 7px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--esm-ink);font-weight:600}
+.note p{font-size:13.6px;color:var(--ink-700);line-height:1.58}
+.note p + p{margin-top:9px}
+.note--open{border-left-color:var(--lat);background:var(--lat-soft)}
+.note--open h4{color:var(--lat)}
+.note--src{border-left-color:var(--ind);background:var(--ind-soft)}
+.note--src h4{color:var(--ind)}
+
+/* ---------- open items ---------- */
+.todo-list{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+.todo-list li{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--rule-soft);font-size:14px}
+.todo-list b{color:var(--ink-900);font-weight:600;min-width:190px;font-size:13.6px}
+.todo-list span{color:var(--ink-500);font-size:13.4px}
+
+footer{margin-top:80px;padding-top:22px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-400);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+
+.mobile-toc{display:none}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .main{padding:0 22px 100px}
+  .mobile-toc{display:block;margin:26px 0 0;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+  .mobile-toc summary{padding:13px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--esm-ink);font-weight:600;cursor:pointer}
+  .mobile-toc nav{padding:0 16px 16px;display:flex;flex-direction:column;gap:6px}
+  .mobile-toc a{color:var(--ink-500);text-decoration:none;font-size:14px}
+  .mobile-toc .rail__grp{margin:12px 0 2px}
+  .cover{padding-top:40px}
+  .spec{grid-template-columns:1fr}
+  .spec dt{padding-bottom:0;border-top:1px solid var(--rule-soft)}
+  .spec dd{padding-top:7px;border-top:0}
+  .beat{grid-template-columns:1fr}
+  .beat__t{padding:14px 20px 0}
+  .beat__b{padding:6px 20px 15px}
+  .vocab{grid-template-columns:1fr}
+  .pillar{border-right:0;border-bottom:1px solid var(--rule-soft);padding-right:0}
+  .pillar:last-child{border-bottom:0}
+  .fact{border-right:0;border-bottom:1px solid var(--rule-soft)}
+  .todo-list li{flex-direction:column;gap:3px}
+}
+</style>
+
+<div class="shell">
+<aside class="rail">
+  <div class="rail__brand">Los Tremblay y el Cofre Esmeralda<em>Game Design Document</em></div>
+  <nav id="toc">
+    <div class="rail__grp">Concepto</div>
+    <a href="#vision">Visión</a>
+    <a href="#pilares">Pilares de diseño</a>
+    <a href="#producto">Producto y audiencia</a>
+    <div class="rail__grp">Diseño de juego</div>
+    <a href="#gameplay">Gameplay</a>
+    <a href="#loop">Core loop</a>
+    <a href="#mecanicas">Mecánicas core</a>
+    <div class="rail__grp">Narrativa</div>
+    <a href="#historia">Historia</a>
+    <a href="#tramas">Las dos líneas</a>
+    <a href="#personajes">Personajes</a>
+    <a href="#cinematicas">Cinemáticas</a>
+    <div class="rail__grp">Contenido</div>
+    <a href="#niveles">Los diez niveles</a>
+    <a href="#conveyance">Conveyance</a>
+    <div class="rail__grp">Producción</div>
+    <a href="#tecnico">Técnico y desarrollo</a>
+    <a href="#arte">Arte y audio</a>
+    <a href="#alcance">Alcance y equipo</a>
+    <a href="#negocio">Monetización</a>
+    <a href="#pendientes">Pendientes</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<header class="cover">
+  <div class="cover__kicker">Game Design Document · v1.0 Prototype</div>
+  <h1>Los Tremblay y el <span>Cofre Esmeralda</span></h1>
+  <p class="cover__lede">Una aventura gráfica que ayuda a los estudiantes de español a interiorizar el idioma mientras se divierten en una trepidante caza del tesoro por Cartagena.</p>
+  <dl class="facts">
+    <div class="fact"><dt>Género</dt><dd>Aventura gráfica en tercera persona</dd></div>
+    <div class="fact"><dt>Plataforma</dt><dd>Android · iOS · Desktop</dd></div>
+    <div class="fact"><dt>Público</dt><dd>8–14 años · ESRB E / PEGI 7</dd></div>
+    <div class="fact"><dt>Estudio</dt><dd>Media Tech Tucán · Game Crafters</dd></div>
+    <div class="fact"><dt>Documento</dt><dd>Jaime Meza · Patricia Domínguez · Carlos Rincón</dd></div>
+  </dl>
+  <details class="mobile-toc">
+    <summary>Índice del documento</summary>
+    <nav>
+      <div class="rail__grp">Concepto</div>
+      <a href="#vision">Visión</a><a href="#pilares">Pilares de diseño</a><a href="#producto">Producto y audiencia</a>
+      <div class="rail__grp">Diseño de juego</div>
+      <a href="#gameplay">Gameplay</a><a href="#loop">Core loop</a><a href="#mecanicas">Mecánicas core</a>
+      <div class="rail__grp">Narrativa</div>
+      <a href="#historia">Historia</a><a href="#tramas">Las dos líneas</a><a href="#personajes">Personajes</a><a href="#cinematicas">Cinemáticas</a>
+      <div class="rail__grp">Contenido</div>
+      <a href="#niveles">Los diez niveles</a><a href="#conveyance">Conveyance</a>
+      <div class="rail__grp">Producción</div>
+      <a href="#tecnico">Técnico y desarrollo</a><a href="#arte">Arte y audio</a><a href="#alcance">Alcance y equipo</a><a href="#negocio">Monetización</a><a href="#pendientes">Pendientes</a>
+    </nav>
+  </details>
+</header>
+
+<!-- ============ 01 VISIÓN ============ -->
+<section id="vision">
+  <div class="sec__head"><span class="sec__num">01</span><h2>Visión</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap stack">
+    <p class="lede">Los Tremblay, una familia canadiense, han heredado una vieja casona colonial en Cartagena. Al llegar se sumergen en una intrigante cacería del tesoro que los llevará por los rincones de la ciudad. Intrigas, acertijos y muchos misterios deben ser resueltos para encontrar el <strong>Cofre Esmeralda</strong>, pero… el éxito depende de qué tan rápido aprendan español.</p>
+    <p><em>Los Tremblay y el Cofre Esmeralda</em> es una aventura gráfica en tercera persona para plataformas móviles con un enfoque educativo en la enseñanza del español mediante la inmersión natural en el idioma. El jugador controla directamente al personaje con movimiento en tiempo real y cámara orbital, explorando entornos ricos en detalles e interactuando con objetos y personajes para aprender sustantivos y adjetivos en español sin traducciones directas.</p>
+    <p>El gameplay está centrado en resolver acertijos narrativos donde las pistas están en un idioma desconocido para los personajes. Cada objeto interactivo reproduce su nombre en español y ofrece una pista visual y auditiva, ayudando al jugador a asociar el sustantivo o adjetivo con el objeto o acción correspondiente. La estructura de niveles no es de mundo abierto: cada área está dividida en secciones para enfocar la exploración y optimizar la experiencia de aprendizaje.</p>
+    <p>El juego utiliza globos de texto para los diálogos, manteniendo una interfaz limpia. Cada personaje tiene habilidades y personalidades distintas —desde la hija amante de la naturaleza hasta el hijo tecnológicamente astuto— que ayudan a resolver enigmas con sus talentos únicos. Un sistema de inventario almacena objetos importantes y un diario permite consultar el vocabulario aprendido y las pistas clave.</p>
+  </div>
+
+  <h3>Tema, escenario y género</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Tema.</strong> Aventura y misterio, combinando descubrimiento cultural y aprendizaje de idiomas. Una búsqueda del tesoro con elementos de intriga familiar y exploración cultural.</li>
+      <li><strong>Escenario.</strong> Cartagena, Colombia, destacando tanto la modernidad como el encanto histórico de la ciudad. La narrativa inicia en una casona colonial y se expande por museos, conventos y túneles históricos. A medida que avanza, el escenario evoluciona hacia un estilo más mágico y fantástico, con iluminación tenue y efectos visuales que evocan un ambiente encantado.</li>
+      <li><strong>Género.</strong> Aventura gráfica de acción y exploración en tercera persona, con enfoque en puzzles lingüísticos. No es mundo abierto: está dividido en áreas específicas y niveles temáticos que permiten concentrarse en la exploración sin distracciones.</li>
+    </ul>
+  </div>
+
+  <h3>Objetivo principal</h3>
+  <div class="wrap stack">
+    <p>Que la familia Tremblay recupere el legendario Cofre Esmeralda, un antiguo tesoro vinculado a la historia de Cartagena y la piratería. Cada miembro de la familia debe enfrentarse a desafíos únicos y colaborar con los demás para resolver una serie de acertijos, superar obstáculos y explorar lugares históricos, incluyendo túneles, fortalezas y un barco pirata.</p>
+    <p>A lo largo de su travesía deberán desvelar los secretos del pasado, descubrir la traición sufrida por el Capitán y evitar que los antagonistas —Gorrión en el pasado, el vecino en el presente— se hagan con el tesoro. El éxito no radica solo en recuperar el cofre, sino en preservar su historia y el vínculo que representa para su familia.</p>
+    <div class="note note--src">
+      <h4>Corrección aplicada</h4>
+      <p>El documento original decía «descubrir la traición <em>del</em> Capitán». Según las cinemáticas, el Capitán es quien <em>sufre</em> la traición —primero de Gorrión, luego del mestizo—. Redactado aquí como «la traición sufrida por el Capitán». Confirmar que es la lectura correcta.</p>
+    </div>
+  </div>
+
+  <h3>Estética, dinámicas y mecánicas</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Estética.</strong> Evocar misterio, asombro y descubrimiento dentro del realismo mágico. Ambientes históricos con un toque fantástico. Iluminación suave, colores vivos pero matizados, especialmente en los momentos nocturnos o de descubrimiento.</li>
+      <li><strong>Dinámicas.</strong> El jugador se mantiene en un estado constante de exploración y resolución, donde el aprendizaje del idioma es parte del avance narrativo. El ritmo equilibra momentos de calma —exploración libre— con otros de urgencia donde resolver el puzzle es indispensable para avanzar.</li>
+      <li><strong>Mecánicas.</strong> Movimiento directo en tercera persona (WASD), inventario, tomar foto, descifrar, exploración con chat familiar, plataformeo simple, y limitación de áreas por nivel. Detalle completo en <a href="#mecanicas">Mecánicas core</a>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 02 PILARES ============ -->
+<section id="pilares">
+  <div class="sec__head"><span class="sec__num">02</span><h2>Pilares de diseño</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="pillars wide">
+    <div class="pillar">
+      <h4>Cámara orbital en tercera persona</h4>
+      <p>El jugador controla al personaje directamente con WASD mientras una cámara orbital gira libremente a su alrededor, dando control total sobre el encuadre para apreciar los detalles visuales sin perder de vista elementos críticos para la jugabilidad: objetos clave para puzzles, rutas alternativas. Facilita escenarios intrincados con mayor flexibilidad en el diseño de niveles. Mantiene el balance entre complejidad del entorno y jugabilidad intuitiva.</p>
+    </div>
+    <div class="pillar">
+      <h4>Cartoon low-poly pintado a mano</h4>
+      <p>Texturas pintadas a mano sobre geometría low-poly, en la línea de <em>Arcane</em>: profundidad y riqueza visual sin sacrificar rendimiento. Alto grado de expresividad con menos carga poligonal, e iteraciones rápidas de contenido visual. El arte estilizado sirve al ambiente y también a la narrativa.</p>
+    </div>
+    <div class="pillar">
+      <h4>Diálogos orgánicos</h4>
+      <p>Globos de texto en lugar de un cajón de diálogo tradicional. El jugador asocia directamente cada línea con su personaje, sin desviar la atención hacia una interfaz sobrecargada, y permanece dentro del mundo del juego.</p>
+    </div>
+    <div class="pillar">
+      <h4>Inmersión lingüística</h4>
+      <p>Los jugadores aprenden español por inmersión natural. Diálogos, interacciones y puzzles exponen gradualmente al jugador al idioma combinando texto visual y audio. Al resolver puzzles y avanzar, se adquiere vocabulario y comprensión de frases sin traducciones directas.</p>
+    </div>
+  </div>
+
+  <h3>Influencias</h3>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Referencia</th><th>Qué tomamos</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Flatworld</strong></td><td>Diálogos en globos de texto, sin cajón de diálogo en primer plano.</td></tr>
+        <tr><td><strong>Rayman</strong></td><td>Estilo cartoon, arte estilizado sobre referentes reales de Cartagena.</td></tr>
+        <tr><td><strong>Arcane</strong></td><td>Texturas pintadas a mano sobre geometría simplificada.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note note--open">
+    <h4>Corrección aplicada</h4>
+    <p>El documento original citaba <em>Diablo Resurrected</em> por su cámara isométrica. Con el cambio a control directo en tercera persona con cámara orbital (WASD), esa referencia queda obsoleta y se retiró. Falta una influencia de reemplazo para el nuevo esquema de cámara y control.</p>
+  </div>
+</section>
+
+<!-- ============ 03 PRODUCTO ============ -->
+<section id="producto">
+  <div class="sec__head"><span class="sec__num">03</span><h2>Producto y audiencia</h2><span class="chip chip--ok">Completo</span></div>
+
+  <h3>Qué distingue a este juego</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Inmersión lingüística a través del gameplay.</strong> Se aprende español explorando y resolviendo acertijos, sin depender de traducciones tradicionales.</li>
+      <li><strong>Realismo con un giro mágico.</strong> Escenarios reales de Cartagena, históricos y modernos, cruzados con realismo mágico.</li>
+      <li><strong>Adquisición impulsada por la historia.</strong> La motivación para aprender es el misterio del cofre, no un ejercicio.</li>
+      <li><strong>Integración cultural.</strong> El juego está impregnado de la historia y la cultura de Cartagena, lo que suma valor educativo y de entretenimiento.</li>
+      <li><strong>Sistema de diálogos no tradicional.</strong> El texto aparece en el mundo, en globos tipo cómic, no en una caja de interfaz.</li>
+    </ul>
+  </div>
+
+  <h3>Público objetivo</h3>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Segmento</th><th>Perfil</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Niños 8–14</strong></td><td>Niños de habla inglesa en edad escolar.</td></tr>
+        <tr><td><strong>Aprendices de idiomas</strong></td><td>Jóvenes interesados en aprender o mejorar su español de forma divertida e interactiva.</td></tr>
+        <tr><td><strong>Padres y educadores</strong></td><td>Adultos que buscan contenido educativo que fomente el desarrollo del lenguaje y la resolución de problemas.</td></tr>
+        <tr><td><strong>Fans de aventuras gráficas</strong></td><td>Jugadores de puzzle y exploración interesados en ambientes culturales e históricos.</td></tr>
+        <tr><td><strong>Jugadores curiosos por la cultura</strong></td><td>Atraídos por entornos culturalmente diversos y por una historia llena de misterio.</td></tr>
+        <tr><td><strong>Comunidad indie</strong></td><td>Desarrolladores y comunidad que siguen el proceso del proyecto.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Clasificación</h3>
+  <div class="wrap">
+    <p><strong>ESRB E / PEGI 7.</strong> Apto para toda la familia, sin violencia gráfica, lenguaje inapropiado ni temas adultos. El foco está en exploración, acertijos y aprendizaje. Incluye intriga, búsqueda de tesoros y realismo mágico, pero sin escenas intensas ni aterradoras.</p>
+    <div class="note note--open">
+      <h4>Punto a revisar</h4>
+      <p>El Nivel 06 (Casa de la Inquisición) pide explícitamente «algo de género de terror», con gritos, cadenas y sensación de persecución. Hay que definir hasta dónde llega ese registro sin comprometer la clasificación E / PEGI 7.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 GAMEPLAY ============ -->
+<section id="gameplay">
+  <div class="sec__head"><span class="sec__num">04</span><h2>Gameplay</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap stack">
+    <p class="lede">Los jugadores exploran Cartagena mientras resuelven puzzles y aprenden español. Controlando al personaje en tiempo real con WASD y cámara orbital, interactúan con objetos y personajes, descubriendo sustantivos y adjetivos que les ayudarán a descifrar pistas y avanzar en la historia. Recolectan objetos en un inventario y resuelven enigmas que los acercan al Cofre Esmeralda.</p>
+  </div>
+
+  <h3>Estructura de áreas</h3>
+  <div class="wrap stack">
+    <p>El juego no es de mundo abierto. Cada nivel se divide en áreas independientes que se cargan al cruzar una puerta. Ejemplo: el nivel es la casona; el estudio es un área que puede tener varios cuartos, pero al volver al comedor cortamos y cargamos la nueva área. Esto reduce carga de memoria, evita que el jugador se sienta abrumado y concentra la atención en los detalles necesarios para resolver los acertijos.</p>
+  </div>
+
+  <h3>Condiciones de victoria</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Principal — narrativa.</strong> Completar la serie de acertijos y desafíos que llevan a recuperar el Cofre Esmeralda. Al lograrlo se activa la secuencia final que cierra la historia.</li>
+      <li><strong>Secundaria — lingüística.</strong> Completar la colección de sustantivos y adjetivos aprendidos, usándolos en los contextos correctos. Puede atarse a logros específicos que representen la adquisición completa del vocabulario de cada nivel.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 05 CORE LOOP ============ -->
+<section id="loop">
+  <div class="sec__head"><span class="sec__num">05</span><h2>Core loop</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap"><p>El ciclo mantiene al jugador envuelto en descubrimiento, aprendizaje y resolución, asegurando una experiencia fluida y educativa reforzada por la narrativa y los desafíos lingüísticos.</p></div>
+  <div class="loop wide">
+    <div class="loop__step"><b>01</b>Explorar el entorno</div><span class="loop__arw">→</span>
+    <div class="loop__step"><b>02</b>Interactuar y aprender vocabulario</div><span class="loop__arw">→</span>
+    <div class="loop__step"><b>03</b>Resolver el puzzle con ese vocabulario</div><span class="loop__arw">→</span>
+    <div class="loop__step"><b>04</b>Avanzar la narrativa</div><span class="loop__arw">→</span>
+    <div class="loop__step"><b>05</b>Recompensa: palabras, objetos, áreas</div><span class="loop__arw">→</span>
+    <div class="loop__back">vuelve a 01</div>
+  </div>
+  <div class="wrap stack" style="margin-top:22px">
+    <p><strong>Ciclo de aprendizaje y avance.</strong> El jugador aprende vocabulario nuevo en un contexto significativo, aplica ese conocimiento para resolver puzzles y desbloquear historia, y progresa en paralelo en la narrativa y en su dominio del idioma —lo que lo acerca a la recuperación del Cofre Esmeralda.</p>
+  </div>
+</section>
+
+<!-- ============ 06 MECÁNICAS ============ -->
+<section id="mecanicas">
+  <div class="sec__head"><span class="sec__num">06</span><h2>Mecánicas core</h2><span class="chip chip--wip">Borrador</span></div>
+
+  <h3>Movimiento y cámara</h3>
+  <div class="wrap stack">
+    <p>Control directo del personaje en tercera persona, con cámara orbital libre alrededor de él —no isométrica ni point-and-click—. El esquema base:</p>
+  </div>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Entrada</th><th>Acción</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">WASD</td><td>Movimiento del personaje</td></tr>
+        <tr><td class="mono">Shift</td><td>Correr</td></tr>
+        <tr><td class="mono">Ctrl</td><td>Agacharse</td></tr>
+        <tr><td class="mono">Espacio</td><td>Saltar</td></tr>
+        <tr><td class="mono">Ratón / stick derecho</td><td>Orbitar la cámara alrededor del personaje</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note note--open">
+    <h4>Adaptación pendiente</h4>
+    <p>Esto reemplaza el esquema anterior de point-and-click isométrico en todo el documento. Para móvil se usarán <strong>controles virtuales en pantalla</strong> (joystick de movimiento + botones táctiles equivalentes a Shift/Ctrl/Espacio); el desktop compila con teclado y ratón directos. Falta definir el layout concreto de esos controles virtuales, cómo se activa la interacción con objetos y NPCs sin clic directo sobre ellos (¿botón contextual al acercarse? ¿prompt en pantalla?), y si el control dual del Nivel 07 (padre + hija) se resuelve con cambio de personaje o con dos esquemas simultáneos.</p>
+  </div>
+
+  <h3>Interacción y aprendizaje</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Interacción contextual.</strong> El jugador se acerca a un objeto o personaje del entorno y lo activa con un botón de interacción. Al hacerlo, escucha y visualiza el sustantivo y adjetivo correspondientes en español.</li>
+      <li><strong>Adquisición de vocabulario.</strong> Interactuar con objetos entrega su nombre y función; hablar con NPCs entrega lecciones de vocabulario en contexto.</li>
+      <li><strong>Feedback auditivo.</strong> Cada palabra nueva reproduce su pronunciación, reforzando la forma correcta de decirla.</li>
+      <li><strong>Diario de vocabulario.</strong> Registro digital consultable en todo momento, con definiciones y frases de ejemplo por entrada.</li>
+      <li><strong>Diálogos interactivos.</strong> Globos de texto asociados al hablante. Los NPCs entregan pistas e instrucciones en español que refuerzan vocabulario clave, convirtiendo el diálogo en parte esencial del avance.</li>
+    </ul>
+  </div>
+
+  <h4>Por qué funciona: el mismo cartel, con y sin idioma</h4>
+  <div class="vocab wide">
+    <div class="vocab__col">
+      <h4>Si sabes el idioma</h4>
+      <p class="vocab__pair">libro <span>púrpura</span><br>libro <span>gris</span></p>
+      <p class="vocab__note">El sustantivo se repite, el adjetivo cambia. La estructura se vuelve legible sola.</p>
+    </div>
+    <div class="vocab__col">
+      <h4>Si no sabes el idioma</h4>
+      <p class="vocab__pair">grumbert <span>culmet</span><br>grumbert <span>urnut</span></p>
+      <p class="vocab__note">Punto de partida del jugador. El juego lo lleva de la columna derecha a la izquierda sin traducir nunca de forma directa.</p>
+    </div>
+  </div>
+
+  <h3>Objetos y mundo</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Sistema de inventario.</strong> Recolectar objetos clave necesarios para resolver puzzles o avanzar. El jugador selecciona y usa estos objetos en el momento adecuado, lo que añade un elemento estratégico y memoriza el vocabulario asociado por uso constante.</li>
+      <li><strong>Tomar foto.</strong> Un ícono de cámara guarda imágenes en el inventario. El jugador colecciona fotos de lo que ve, que después alimentan la mecánica de descifrar. <em>Oportunidad:</em> el dron de Julien tiene cámara — puede ser el vehículo diegético de esta mecánica en sus niveles, y llegar a encuadres que el personaje a pie no alcanza.</li>
+      <li><strong>Coger / soltar.</strong> Al coger, el objeto entra al inventario; los objetos pueden —y eventualmente deben— ser colocados en otro lugar para generar progresión.</li>
+      <li><strong>Mover.</strong> Desplazar objetos del entorno; base de los puzzles ambientales.</li>
+      <li><strong>Saltar.</strong> Permite plataformeo simple.</li>
+      <li><strong>Agacharse.</strong> Al entrar en un lugar estrecho el personaje se agacha; útil para lugares secretos y desbloqueos.</li>
+    </ul>
+  </div>
+
+  <h3>Exploración</h3>
+  <div class="wrap stack">
+    <p>Es la mecánica principal. Los personajes se desplazan por el mundo y hay que invitarlos a explorar poniendo pistas visuales y sonoras, o resolviendo pequeños puzzles que dan acceso a más lugares. El <strong>chat familiar simulado</strong> con los otros miembros de la familia mantiene al jugador inmerso con chistes, tips y ayudas.</p>
+    <p>Como cada nivel se juega con un personaje o pareja distinta —el hijo en la casona, la mamá en el museo, el padre y la hija en los túneles—, el chat es también el hilo que mantiene presente al resto de la familia mientras no están en pantalla: en ciertos momentos del nivel se dispara un mensaje de chat que da contexto, una pista o ayuda desde quien esté en otro lugar de la historia en ese instante.</p>
+  </div>
+
+  <h3>Descifrar</h3>
+  <div class="wrap stack">
+    <p>Al jugador se le plantea un mensaje en un idioma desconocido. Mediante exploración recolecta sustantivos de diferentes objetos. El mensaje abre una interfaz pop-up donde el jugador arrastra la imagen a un socket asociado a cada palabra —un juego de emparejar—: <em>«La puerta del ángel en el convento»</em>.</p>
+    <p>Cualquier aviso o texto en español puede ser traducido con esta mecánica. Ejemplo: en una puerta hay un aviso de baño; al tocarlo se abre el pop-up de descifrar, se pone el sustantivo y el adjetivo, y si es correcto hay recompensa visual y sonora.</p>
+    <p>La mecánica se extiende a pequeñas partes de la exploración: avisos, gafetes y otros elementos de comunicación repartidos por los niveles.</p>
+  </div>
+
+  <h3>Puzzles</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>De progresión.</strong> En formato minijuego: descifrar una clave, organizar imágenes y similares.</li>
+      <li><strong>Ambientales.</strong> Pequeñas deducciones: mover una caja para desbloquear un paso, encontrar una palanca que activa un sistema.</li>
+      <li><strong>Basados en vocabulario.</strong> Seleccionar la palabra correcta o completar frases, con retroalimentación inmediata de acierto o error.</li>
+      <li><strong>Minijuegos.</strong> Juegos de emparejar palabra e imagen, y desafíos cronometrados que motivan el aprendizaje. Por ejemplo, en la casona (Nivel 03): <strong>Caza de ranas</strong> —Julien pilota su dron para sacar de la fuente ranas de distintos colores, encerrándolas en una zona de captura que se va encogiendo— y <strong>El banquete</strong> —descifrar una receta en español, ir a la alacena por los ingredientes en la cantidad correcta y prepararla con la acción y el tiempo que cada paso pide—. Ambos refuerzan vocabulario en español.</li>
+    </ul>
+  </div>
+
+  <h3>Progresión y encuentros</h3>
+  <div class="wrap">
+    <ul class="plain">
+      <li><strong>Progresión de niveles.</strong> Cada nuevo conjunto de palabras desbloquea acceso a nuevas áreas; completar niveles entrega recompensas —objetos o nuevos diálogos—.</li>
+      <li><strong>Misiones con NPCs.</strong> Tareas que requieren vocabulario específico, con conversaciones que se adaptan a lo que el jugador ya ha aprendido.</li>
+      <li><strong>Encuentros aleatorios.</strong> NPCs o situaciones inesperadas que exigen usar palabras nuevas en contextos únicos.</li>
+      <li><strong>Limitación de áreas por nivel.</strong> Evita que el jugador se sienta abrumado y asegura que no pierda información crucial.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 07 HISTORIA ============ -->
+<section id="historia">
+  <div class="sec__head"><span class="sec__num">07</span><h2>Historia</h2><span class="chip chip--wip">Borrador</span></div>
+  <div class="wrap stack">
+    <p class="lede">Los Tremblay, una familia canadiense, heredan una antigua casona colonial en Cartagena. Al llegar se encuentran inmersos en una cacería del tesoro para recuperar el legendario Cofre Esmeralda, un antiguo tesoro relacionado con la historia de la piratería.</p>
+    <p>La búsqueda no será fácil. A medida que exploran lugares históricos y resuelven acertijos deben aprender español para descifrar las pistas y avanzar. Cada miembro de la familia aporta habilidades únicas para superar desafíos y desvelar secretos.</p>
+  </div>
+
+  <h3>El hilo del presente, nivel por nivel</h3>
+  <div class="wrap stack">
+    <p>Esta tabla no existía como tal: la historia del presente estaba repartida en el campo «Objetivo» de cada una de las diez fichas de nivel, sin que se leyera de corrido en ningún lugar. Aquí se reconstruye como una sola línea narrativa — cada nivel entendido como un capítulo con su asunto y su giro de cierre, siguiendo la regla de <a href="#tramas">la cinemática como bisagra</a>. Las cinemáticas del pasado que hacen de puente ya estaban mapeadas en <a href="#tramas">Las dos líneas temporales</a>; aquí se citan solo como referencia de contexto.</p>
+  </div>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Nivel</th><th>Qué cuenta el presente</th><th>Cierra con</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">01</td><td>La familia recibe <strong>la noticia</strong>: han heredado una casona colonial en Cartagena. Hacen las maletas.</td><td>Salen de Canadá.</td></tr>
+        <tr><td class="mono">02</td><td>En el aeropuerto, primer contacto con el idioma y con Cartagena a través de un volante y de los NPCs que no les entienden.</td><td>Llegan a Cartagena. <em>Bisagra: Cinemática #1, El prólogo.</em></td></tr>
+        <tr><td class="mono">03</td><td>Llegan a la casona. La familia entera explora la casa —el papá reconoce el pasado pirata en cuadros y estatuas, la hija repara en la inscripción de la fuente—, mientras Julien y Éliane cazan ranas y ayudan con el banquete. En la biblioteca, con ayuda de Leti, encuentran el <strong>diario familiar</strong>.</td><td>Recuperan el diario. <em>Bisagra: Cinemática #4, En rescate del cofre.</em></td></tr>
+        <tr><td class="mono">04</td><td>En un cuarto secreto de la casona aparece una <strong>hoja del diario</strong> con tres lugares marcados y una «X» sobre el Fuerte San Felipe: la primera pista real hacia el cofre.</td><td>Se revela el destino: el Fuerte San Felipe. <em>Bisagra: Cinemática #2, La traición de Gorrión.</em></td></tr>
+        <tr><td class="mono">05</td><td>El diario ya no está en la casona — el vecino lo tiene. Julien se infiltra en su casa sin ser visto para recuperarlo, y de paso ve algo de lo que el vecino ha estado guardando.</td><td>Recuperan el diario; primera grieta visible en el vecino. <em>Sin cinemática en esta propuesta.</em></td></tr>
+        <tr><td class="mono">06</td><td>Lucía, sola y de noche, explora la Casa de la Inquisición. Encuentra una puerta con la <strong>misma marca del diario</strong>: la conexión entre la casona, la Inquisición y los túneles queda confirmada.</td><td>Se abre el paso a los túneles. <em>Fase «la ruptura» del arco de Lucía.</em></td></tr>
+        <tr><td class="mono">07</td><td>Étienne y Éliane recorren los túneles bajo el golfo, descifrando el diario pirata para abrirse camino hasta el fuerte.</td><td>Llegan al Fuerte San Felipe. <em>Bisagra: Cinemática #5, El barco.</em></td></tr>
+        <tr><td class="mono">08</td><td>Exploración del convento y descenso por la escalera en espiral; se restaura el viejo sistema de rieles piratas para transportar el tesoro.</td><td>El camino de transporte queda operativo. <em>Sin cinemática en esta propuesta.</em></td></tr>
+        <tr><td class="mono">09</td><td>El vecino y sus secuaces corren hacia el barco sabiendo ya dónde está. Julien debe adelantárseles y detenerlos.</td><td>Julien frena al vecino justo antes de que aborde. <em>Bisagra: Cinemática #6, El cofre esmeralda.</em></td></tr>
+        <tr><td class="mono">10</td><td>Toda la familia converge en el barco — Lucía desde la popa, Julien con el vecino ya reducido, Étienne y Éliane por el túnel de la casona—. Resuelven juntos el acertijo de las dos llaves y encuentran el <strong>Cofre Esmeralda</strong>.</td><td>Clímax: las dos líneas temporales terminan en el mismo lugar.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note note--open">
+    <h4>Costuras que hay que coser explícitamente</h4>
+    <p><strong>Cómo el vecino se queda con el diario entre el Nivel 03 y el 05.</strong> El GDD nunca lo muestra: la familia lo encuentra en la biblioteca en el Nivel 03 y en el Nivel 05 ya está en la oficina del vecino. Falta una escena —puede ser tan simple como un descuido, una visita del vecino a la casona, o un robo fuera de cámara narrado por el chat familiar— que lo justifique.</p>
+    <p><strong>Qué pasa exactamente con el vecino en el Nivel 09.</strong> «Julien lo detiene» puede significar que lo encierra, lo delata a los guardias, o lo enfrenta directamente. El Nivel 10 dice que llega «con el vecino», lo que sugiere que termina custodiado o colaborando a la fuerza — vale la pena decidir el tono de esa transición, porque cambia si el vecino sigue siendo amenaza en el clímax o ya está neutralizado.</p>
+    <p><strong>Niveles 08 y 09 sin bisagra al pasado.</strong> Es la zona más larga de la campaña —tres niveles seguidos, 07 a 09— sin corte a la línea del Capitán antes del cierre en el Nivel 10. Confirmar si es el ritmo deseado (tensión sostenida en el presente antes del remate) o si conviene mover alguna cinemática para repartir mejor.</p>
+  </div>
+</section>
+
+<!-- ============ 08 LAS DOS LÍNEAS ============ -->
+<section id="tramas">
+  <div class="sec__head"><span class="sec__num">08</span><h2>Las dos líneas temporales</h2><span class="chip chip--wip">Borrador</span></div>
+  <div class="wrap stack">
+    <p class="lede">El juego cuenta dos historias en paralelo. La <strong>línea del presente</strong> —los Tremblay recorriendo Cartagena— avanza por los <a href="#niveles">diez niveles</a> jugables. La <strong>línea del pasado</strong> —la traición de Gorrión y el largo regreso del Capitán— avanza por cinemáticas en cómic animado, ubicadas en la transición entre niveles.</p>
+    <p>Las dos líneas convergen en el barco: lo que el Capitán escondió es exactamente lo que la familia encuentra, y el antagonista del presente persigue lo mismo que el traidor del pasado.</p>
+  </div>
+
+  <h3>Regla de estructura: la cinemática como bisagra</h3>
+  <div class="wrap stack">
+    <p>Cada nivel cierra con un <strong>giro argumental</strong> y un final claro en el presente. Inmediatamente después se reproduce la <strong>cinemática del pasado</strong> — pero no cuenta lo que acaba de pasar: <strong>ejemplifica la situación del nivel que empieza</strong>. Funciona como bisagra: cierra un nivel del presente y abre el siguiente con su espejo en el pasado.</p>
+    <div class="loop wide" style="margin-top:18px">
+      <div class="loop__step"><b>Cierre</b>Giro argumental — final del nivel N (presente)</div><span class="loop__arw">→</span>
+      <div class="loop__step" style="border-color:var(--lat)"><b>Bisagra</b>Cinemática del pasado — anticipa el nivel N+1</div><span class="loop__arw">→</span>
+      <div class="loop__step"><b>Apertura</b>Inicio del nivel N+1 (presente)</div>
+    </div>
+  </div>
+
+  <h3>Mapeo propuesto</h3>
+  <div class="wrap stack">
+    <p>10 niveles dejan hasta 9 transiciones internas, más la apertura del juego — 10 posiciones posibles de bisagra. Hay <strong>6 cinemáticas</strong> escritas, así que no toda transición lleva una: se ubicaron donde el paralelo temático es más fuerte, siguiendo la regla de arriba (la cinemática anticipa el nivel que sigue, no resume el que cierra). Es una <strong>propuesta</strong> a validar.</p>
+  </div>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Bisagra</th><th>Cinemática del pasado</th><th>Anticipa</th><th>Paralelo temático</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Apertura</td><td><strong>#1 El prólogo</strong></td><td>Nivel 01 · La Noticia</td><td>Establece el conflicto y el cofre antes de que la familia sepa que existen.</td></tr>
+        <tr><td class="mono">Tras 03</td><td><strong>#4 En rescate del cofre</strong></td><td>Nivel 04 · El cuarto secreto</td><td>El Capitán reconstruyendo la casona en secreto anticipa el cuarto oculto que la familia descubre en ella.</td></tr>
+        <tr><td class="mono">Tras 04</td><td><strong>#2 La traición de Gorrión</strong></td><td>Nivel 05 · El vecino</td><td>La traición de alguien de máxima confianza (el segundo del Capitán) prefigura la traición de alguien cercano en el presente (el vecino).</td></tr>
+        <tr><td class="mono">Tras 05</td><td><strong>#3 El sacrificio del Capitán</strong></td><td>Nivel 06 · Casa de la Inquisición</td><td>La mamá enfrenta sola un lugar peligroso, como el Capitán se sacrificó solo por detener a Gorrión.</td></tr>
+        <tr><td class="mono">Tras 07</td><td><strong>#5 El barco</strong></td><td>Nivel 08 · El convento</td><td>Un descenso hacia un tesoro oculto, con una traición cercana acechando desde las sombras (el mestizo / el vecino).</td></tr>
+        <tr><td class="mono">Tras 09</td><td><strong>#6 El cofre esmeralda</strong></td><td>Nivel 10 · El barco</td><td>El Capitán encuentra el cofre y deja la carta; la familia encuentra el mismo cofre. Cierre directo de las dos líneas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note note--open">
+    <h4>A confirmar</h4>
+    <p>Las transiciones 02→03, 06→07 y 08→09 quedan sin cinemática del pasado en esta propuesta —avance puramente en presente—. Confirmar si eso es correcto o si conviene repartir mejor las 6 piezas, y si el juego abre con la Cinemática #1 antes del Nivel 01 o después del tutorial (Niveles 01–02).</p>
+  </div>
+
+  <h3>El puente diegético</h3>
+  <div class="wrap stack">
+    <p>El <strong>diario</strong> es el vehículo que sostiene el paralelo. Ya está escrito en el juego: aparece en el Nivel 03 en la biblioteca de la casona, se pierde ante el vecino y se recupera en el Nivel 05, y es la herramienta central de descifrado en los túneles del Nivel 07. La propuesta es formalizar que <em>cada pista descifrada del diario desbloquea un fragmento de la línea del pasado</em>, de modo que el avance lingüístico, el avance narrativo del presente y la revelación del pasado sean un mismo movimiento.</p>
+  </div>
+
+  <h3>La convergencia de los antagonistas</h3>
+  <div class="wrap stack">
+    <p>En la Cinemática #5 y #6, un <strong>mestizo</strong> sigue al Capitán, descubre lo que buscaba y —según la nota de cierre— «ha tratado de encontrar lo que esa noche supo que quería el capitán». En el presente, el <strong>vecino</strong> compró la propiedad contigua «porque en su familia siempre estuvo la historia del cofre esmeralda y su relación con la casa».</p>
+    <div class="note note--open">
+      <h4>Decisión pendiente</h4>
+      <p>Las dos descripciones apuntan a lo mismo, pero <strong>en ningún lugar del documento se afirma que el vecino descienda del mestizo</strong>. Ese es el nudo que cierra las dos líneas. Hay que decidir: ¿se confirma el parentesco, y en qué nivel se revela? El Nivel 05 —cuando el jugador entra a su casa y ve lo que ha estado coleccionando— es el candidato natural.</p>
+      <p>Falta también cerrar la posición de <strong>José Gorrión</strong> en el presente. El documento lo lista como antagonista junto al vecino, pero muere atrapado en el fuerte en la Cinemática #2. ¿Es solo figura del pasado, sobrevivió, o dejó descendencia también?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 PERSONAJES ============ -->
+<section id="personajes">
+  <div class="sec__head"><span class="sec__num">09</span><h2>Personajes</h2><span class="chip chip--wip">Borrador</span></div>
+
+  <h3>La familia Tremblay</h3>
+  <div class="wrap stack">
+    <p>Nombres y personalidades consolidados a partir del documento de nombres y de los tres cuentos de la familia —<em>Halloween</em>, <em>Navidad</em> y <em>El conejo de Pascua</em>—, donde ya aparecen en acción. Cada cuento retrata a un miembro distinto: Éliane en Halloween y en Pascua, Julien en Navidad, Étienne en Pascua.</p>
+  </div>
+  <div class="cast">
+    <div class="card">
+      <h4>Étienne Tremblay · Papá</h4><span class="card__role">Jugable · Nivel 07</span>
+      <p><strong>Profesor universitario de historia</strong>, autor de libros — con todas las credenciales en regla. Lo que lo distingue no es su formación sino <strong>dónde pone los ojos</strong>: le interesa más la pequeña nota al margen que el grueso del texto histórico. Ahí es donde encuentra lo que nadie más busca.</p>
+      <p><strong>Le gusta lo raro y no duda en investigar el mito.</strong> Su amor por los piratas viene precisamente de que esas historias siempre llegan tras un velo mítico, donde lo real y lo mágico cuentan la historia juntos. No persigue leyendas por credulidad: las persigue porque sabe que el mito guarda un hecho adentro. Eso lo pone en el centro exacto del misterio del Cofre Esmeralda.</p>
+      <p><strong>Racionalista, no escéptico.</strong> Ante lo imposible siempre encuentra explicación física —«debe ser la presión»— y se emociona por el hallazgo intelectual, no por la magia. La tensión con su hija es el motor del dúo: <em>él cree que detrás del mito hay un hecho; ella está dispuesta a creer en el mito mismo</em>. Se absorbe tanto en sus mapas que pasa por alto lo que ocurre delante de sus ojos, y es Éliane quien lo ve. Cariñoso y sin condescendencia con ella: «adoro tu imaginación».</p>
+      <p><strong>Seña visual:</strong> su deshilachado gorro de explorador, que se pone al montar su pequeño campamento de investigación. Más canadiense que los alces; adora la tranquilidad y seguridad de su país.</p>
+    </div>
+    <div class="card">
+      <h4>Éliane Tremblay · Hija, 16 años</h4><span class="card__role">Jugable · Nivel 07</span>
+      <p><strong>La que observa.</strong> Su gran virtud es notar los patrones que su padre pasa por alto: que los conejos guardianes vigilan, que se mueven coordinados, que el color de las flores que cargan decide a qué entrada van. Deduce por otro camino que él: «una entrada importante no se mostraría con facilidad, estaría oculta» — y busca en el lugar menos evidente.</p>
+      <p><strong>Dispuesta a creer.</strong> Le encantan las tardes en el estudio de su padre: el olor a papel viejo, su voz narrando aventuras. Si él puede creer en tesoros imposibles, ella puede creer en conejos mágicos, al menos por un rato.</p>
+      <p><strong>Protectora.</strong> Salvaje, amante de los animales, el campamento y la supervivencia; heredó de su abuela el amor por los animales, hace campamentos en su patio y rescata animales heridos. Es ella quien decide que un secreto así se guarda para proteger a quienes viven en él, no por avaricia.</p>
+      <p><strong>Valiente y recursiva bajo presión.</strong> En el cuento de Halloween acepta un reto para demostrar su valentía y termina cayendo al sótano de una casa que resulta ser el hogar de una bruja. En vez de huir a ciegas: usa la linterna del móvil, y cuando se agota la batería enciende una vela y con ella un farol antiguo; deduce lo que la bruja busca y le deja el gorro y la escoba a la vista para que se marche; y calla al gato lanzándole un trozo de carne seca que llevaba en el bolsillo — el tipo de cosa que solo lleva encima alguien acostumbrada a acampar.</p>
+      <p><strong>Seña visual:</strong> diadema con orejas y flores en el pelo.</p>
+      <p><strong>Nota de continuidad:</strong> Éliane es la protagonista del cuento de Halloween, que es el que ya está implementado como cuento jugable en <em>Tremblay AR</em>. Los dos proyectos comparten personaje.</p>
+    </div>
+    <div class="card">
+      <h4>Julien Tremblay · Hijo, 12 años</h4><span class="card__role">Jugable · Niveles 03, 05, 09</span>
+      <p><strong>Inventor de cuarto desordenado.</strong> Desde siempre ha adorado la tecnología; pasa horas en su magnífico taller improvisado ensamblando aparatos curiosos. Su método: un dron, camaritas tomadas sin permiso de las cosas de su papá, <strong>mucha cinta adhesiva</strong> y algo de pintura para decorar. También fabrica espadas «súper futuristas» de cartón con LEDs sacados de juguetes dañados.</p>
+      <p><strong>Tenaz hasta lo obsesivo.</strong> Cuando se plantea una misión —descubrir quién se come las galletas de tortuga— vigila el día entero hasta quedarse dormido frente a la pantalla. Cuenta atrás ritual antes de cada lanzamiento: «3, 2, 1… ignición».</p>
+      <p><strong>Blando por dentro.</strong> Separa las galletas con forma de tortuga en un frasco aparte para salvarlas, porque le parecen adorables. Prefiere lo moderno a lo tradicional, pero aprende a valorar lo hecho a mano. Su hermana mayor lo molesta sin tregua y él le sigue el juego.</p>
+      <p><strong>Su dron.</strong> Es su compañero permanente y su herramienta en todos sus niveles. Tiene forma de tortuga, cámara, y está unido con mucha cinta. Julien lo trata como si tuviera conciencia — <em>y lo parece</em>. El juego nunca aclara si es solo su imaginación o si el dron realmente la tiene, y <strong>nunca lo va a explicar</strong>.</p>
+      <p><strong>Nota:</strong> su archienemigo declarado es <em>el loro de la vecina</em>, con el que ya ha tenido problemas.</p>
+    </div>
+    <div class="card">
+      <h4>Lucía Gagnon · Mamá</h4><span class="card__role">Jugable · Nivel 06</span>
+      <p><strong>El personaje que más cambia.</strong> Su vida acomodada en Canadá la oprimía, y de ahí viene su personalidad acelerada e impulsiva: energía sin cauce, una líder sin territorio. Al desatarse la aventura del cofre, Lucía encaja —rompe su cáscara, se siente libre y toma el liderazgo de su familia—. No es que aprenda a liderar: es que por fin está donde su forma de ser sirve para algo.</p>
+      <p><strong>Líder nata</strong>, se le facilita hablar con las personas. Su abuela es colombiana; su madre nació en Canadá, al igual que ella. Sabe muy poco español — la ironía que sostiene su arco: lo que va a recuperar no es solo un cofre, es un idioma y un linaje que se le diluyeron por el camino.</p>
+      <p><strong>Es la razón de que la familia esté en la historia.</strong> La sangre colombiana —y el vínculo con el Capitán— entran a los Tremblay por su lado. Sin Lucía no hay herencia, ni casona, ni cofre.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <h4>El arco de Lucía — el renacimiento</h4>
+    <p>De los cuatro, es la que atraviesa la transformación más grande; los demás cambian de escenario, ella cambia de vida. Conviene diseñar su presencia en los niveles alrededor de esta curva:</p>
+  </div>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Fase</th><th>Estado</th><th>Dónde se ve</th></tr></thead>
+      <tbody>
+        <tr><td><strong>La cáscara</strong></td><td>Comodidad canadiense que oprime. Impulsiva, acelerada, hablando con todo el mundo sin que esa energía lleve a ninguna parte.</td><td>Niveles 01–02 · Canadá y el aeropuerto</td></tr>
+        <tr><td><strong>La grieta</strong></td><td>Llegar a Cartagena y reconocer algo que nunca vivió. La ciudad la nombra bien; el idioma todavía no le responde.</td><td>Nivel 03 · La casona</td></tr>
+        <tr><td><strong>La ruptura</strong></td><td>Su nivel en solitario. Se mete sola de noche en la Casa de la Inquisición, sin la familia y sin red. Es el punto donde deja de ser la mamá que acompaña y pasa a ser quien abre el camino.</td><td>Nivel 06 · Casa de la Inquisición</td></tr>
+        <tr><td><strong>Libre</strong></td><td>Lidera. La familia se reorganiza alrededor de ella para el tramo final.</td><td>Niveles 09–10 · Fuerte y barco</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note note--src">
+    <h4>Por qué su nombre no rima con el resto — y por qué eso la fortalece</h4>
+    <p>Los tres Tremblay comparten una misma cadencia francófona: <strong>Étienne</strong>, <strong>Éliane</strong>, <strong>Julien</strong>. <strong>Lucía</strong> no rima con ellos, y esa disonancia es deliberada: en Canadá la marcaba como la que no terminaba de encajar, pero al llegar a Cartagena se invierte de golpe. Su nombre es el único que la ciudad pronuncia sin esfuerzo. Los demás llegan como extranjeros; ella llega a casa.</p>
+    <p>Dicho de otro modo: no es la rara de la familia, es la única que no es forastera. El juego entero trata de aprender español — y ella es la que ya suena a español desde el título.</p>
+  </div>
+
+  <div class="note">
+    <h4>El dron de Julien — origen y regla de ambigüedad</h4>
+    <p><strong>De dónde sale.</strong> El cuento de Navidad es la historia de nacimiento del dron. Julien monta un primer dron casero —cámaras robadas a su papá, mucha cinta— para vigilar el frasco de galletas; con él hiere accidentalmente a un elfo, termina suplantándolo, viaja al taller de Santa y allí diseña el dron que de verdad quería: con forma de <strong>tortuga</strong>, con una cámara genial, unido con mucha cinta, y que <em>se maneja con la imaginación</em>. Despierta convencido de que fue un sueño… y el dron está bajo el árbol. Su padre lo mira y dice que parece descompuesto, que vayan a cambiarlo. Julien responde: <em>«No, papá, así está perfecto.»</em></p>
+    <p><strong>La regla.</strong> Ahí queda instalada la ambigüedad que rige a este personaje y a toda la familia: lo que para el papá es un aparato defectuoso, para Julien es el dron que él mismo diseñó en el Polo Norte. Julien lo trata como si tuviera conciencia y el dron se comporta como si la tuviera. <strong>El juego no aclara si es imaginación suya o si el dron realmente está vivo, y no debe explicarlo nunca.</strong> Ni un diálogo que lo confirme, ni uno que lo desmienta.</p>
+  </div>
+  <div class="note note--src">
+    <h4>Un principio de toda la franquicia</h4>
+    <p>En los tres cuentos —Halloween, Navidad y Pascua— la magia se mezcla con la realidad sin que nadie levante acta. La bruja puede ser una anciana excéntrica; el viaje al Polo Norte puede ser un sueño; los conejos coordinados pueden ser conejos. Siempre hay una lectura racional disponible y otra mágica, y el relato se niega a elegir.</p>
+    <p>Ese es el mismo motor del Cofre Esmeralda: el resplandor verde, la visión del Capitán, el cofre que espera doscientos años. <strong>Étienne encarna la lectura racional, Éliane la mágica, Julien vive dentro de la ambigüedad sin necesitar resolverla.</strong> El juego debe sostener las dos lecturas hasta el final en lugar de cerrar una.</p>
+  </div>
+
+  <div class="note note--src">
+    <h4>El apellido: Gagnon, y por qué funciona</h4>
+    <p><strong>Lucía Gagnon</strong> — apellido francocanadiense, del lado de su padre. La raíz colombiana le llega por su madre, hija de la abuela colombiana, así que <strong>no viaja en el apellido</strong>: es una herencia que sus papeles no delatan.</p>
+    <p>Eso refuerza el arco en vez de debilitarlo. Lucía llega a Cartagena sin nada externo que la acredite —apellido francés, pasaporte canadiense, español titubeante— y aun así es la heredera legítima del cofre. Su pertenencia no está escrita en ningún documento: la tiene que <em>descubrir</em>, y el juego entero es ese descubrimiento. El nombre de pila la delata; el apellido la disfraza.</p>
+  </div>
+  <div class="note note--open">
+    <h4>Decisiones de nombre</h4>
+    <p><strong>Decididos:</strong> <strong>Étienne</strong>, <strong>Éliane</strong> y <strong>Julien</strong> Tremblay. Étienne y Éliane ya aparecían por nombre en <em>El conejo de Pascua</em>; el del hijo se eligió entre las dos opciones que planteaba el documento de nombres — «muy común en Quebec, suena actual pero tradicional».</p>
+    <div style="border-left:2px solid var(--lat);padding-left:12px;margin-top:10px">
+      <p style="font-size:13.4px"><strong>Ajuste necesario en el cuento de Navidad.</strong> Ese cuento llama al niño <strong>Tommy</strong> de principio a fin —tanto en la narración como en los diálogos de Santa y del elfo—. Con Julien como nombre canónico, hay que actualizar el texto del cuento para que no contradiga al GDD. Ojo también con el juego de palabras: Santa lo llama «Mitof» todo el rato creyendo que es el elfo, y el chiste depende de que el lector sepa que en realidad es el niño.</p>
+    </div>
+    <p>La mamá es <strong>Lucía Gagnon</strong> —«funciona perfecto en francés e inglés»—, descartada la alternativa <em>Isabela</em>. <em>Gagnon</em> es su apellido de soltera; pasa a ser señora Tremblay por matrimonio. Con esto, <strong>los cuatro nombres de la familia quedan cerrados</strong>.</p>
+    <p><strong>Resuelto:</strong> lo que parecía una contradicción entre el GDD —Étienne «enseñando historia universal en la universidad y escribiendo libros»— y <em>El conejo de Pascua</em> —«no de los que pisan archivos oficiales ni firman artículos académicos»— no lo es. <strong>Sí es profesor universitario de historia.</strong> La frase del cuento no niega su cargo: describe su gusto por lo raro y su disposición a investigar el mito. «Lo del margen» significa que le interesa más la pequeña nota al margen que el grueso del texto histórico.</p>
+  </div>
+
+  <h3>Aliados</h3>
+  <div class="cast">
+    <div class="card">
+      <h4>Leti, la lora</h4><span class="card__role">Comodín · desde Nivel 03</span>
+      <p>Compañera de guía turístico: siempre pasa desapercibida, busca clientes y da información para que el guía los aborde y les cuente sus historias. Atrae a los turistas hablando un español muy básico, pero ella sabe hablar bien. En el juego funciona como comodín: ofrece pistas y desbloquea elementos cuando el jugador lo necesita.</p>
+    </div>
+  </div>
+
+  <h3>Antagonistas</h3>
+  <div class="cast">
+    <div class="card card--anta">
+      <h4>El vecino</h4><span class="card__role">Presente</span>
+      <p>Compró la propiedad vecina porque en su familia siempre estuvo la historia del cofre esmeralda y su relación con la casa que hereda la familia Tremblay. Inicialmente quiere ayudar a buscar el tesoro, pero al darse cuenta de que los Tremblay quieren donarlo —o quedárselo— tratará de encontrarlo antes.</p>
+    </div>
+    <div class="card card--anta">
+      <h4>José Gorrión</h4><span class="card__role">Pasado</span>
+      <p>Segundo del Capitán. Recomienda descartar la salida secreta del fuerte para después usarla él mismo, robando el cofre en plena batalla. Queda atrapado cuando los cañonazos del propio Capitán derrumban la salida.</p>
+    </div>
+    <div class="card card--anta">
+      <h4>El mestizo</h4><span class="card__role">Pasado · enlace</span>
+      <p>Trabajador de los túneles. Sospecha del Capitán, lo sigue, consigue la llave y lo confronta frente al barco. Presencia el descubrimiento del cofre y decide quedárselo.</p>
+    </div>
+  </div>
+
+  <h3>Reparto secundario</h3>
+  <div class="npc-list">
+    <span class="npc">Mayordomo</span><span class="npc">Esposa del mayordomo</span><span class="npc">Guardaespaldas del vecino</span>
+    <span class="npc">Taxista</span><span class="npc">Guía turístico</span><span class="npc">Monja</span><span class="npc">2 monjes</span>
+    <span class="npc">Pirata (familia de mamá)</span><span class="npc">2 turistas extranjeros</span><span class="npc">5 personas genéricas</span>
+  </div>
+  <div class="note note--open" style="max-width:var(--measure)">
+    <h4>Pendiente</h4>
+    <p>Falta el nombre propio del <strong>Capitán</strong>, que es el protagonista de cinco de las seis cinemáticas.</p>
+    <p>En cambio, la identidad de «la señora Tremblay» de la visión de la Cinemática #6 queda prácticamente resuelta por el arco de Lucía: la línea de sangre colombiana entra por ella —Gagnon de soltera, Tremblay por matrimonio—, así que <strong>la señora Tremblay es Lucía misma</strong>. El Capitán ve en el cofre a su tataranieta, la mujer que siglos después heredará la casona, y le deja la carta a ella. Es el remate del arco: el cofre llevaba doscientos años esperándola. La alternativa —que fuera su abuela colombiana— ya no encaja, porque esa mujer nunca fue Tremblay.</p>
+    <p>Los nombres del reparto secundario siguen sin definirse, empezando por la <strong>esposa del mayordomo</strong>, que ahora tiene peso propio como quien encarga el banquete en el <a href="#niveles">Nivel 03</a>.</p>
+  </div>
+</section>
+
+<!-- ============ 10 CINEMÁTICAS ============ -->
+<section id="cinematicas">
+  <div class="sec__head"><span class="sec__num">10</span><h2>Cinemáticas</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap stack">
+    <p>Seis piezas en <strong>cómic animado con audio en español</strong>, que en conjunto cuentan la línea del pasado de principio a fin. Duración objetivo de ~1:00 a ~1:10 cada una.</p>
+  </div>
+
+  <!-- C1 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 01</span>
+      <h3>El prólogo</h3>
+      <p class="cine__obj">Establecer el contexto histórico y la urgencia del conflicto. Introducir a José Gorrión como antagonista y sugerir la existencia de un poder mágico en el cofre.</p>
+      <div class="cine__mood"><span>Batalla histórica</span><span>Misterio</span><span>Magia</span><span>Tensión y sorpresa</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>Asedio al fuerte</h4>
+        <p>Asedio de piratas al fuerte de Cartagena. Caos animado en paneles de cómic: explosiones, fuego y piratas abordando.</p>
+        <p class="audio-note">Audio — sonidos de batalla, gritos de piratas, música épica de fondo.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>Diálogo del capitán</h4>
+        <p>En medio del caos, el capitán pide que se resguarde el cofre. Primer plano de su rostro preocupado.</p>
+        <span class="line"><b>Capitán</b>¡Resguarden el cofre esmeralda! ¡De lo contrario, todos nuestros esfuerzos serán en vano!</span>
+        <p class="audio-note">Audio — voces en español acentuando la desesperación.</p></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>Revelación del error</h4>
+        <p>Un soldado corre hacia el capitán y le informa que el cofre ya fue enviado a tierra. Primer plano de la cara del capitán.</p>
+        <span class="line"><b>Soldado</b>José Gorrión y cinco hombres subieron al bote con el cofre, mi capitán.</span>
+        <span class="line"><b>Capitán</b>¡No ordené esconder el cofre en tierra!</span>
+        <p class="audio-note">Audio — el tono se intensifica: asombro del soldado, miedo del capitán.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:45</div><div class="beat__b">
+        <h4>Reacción del capitán</h4>
+        <p>Cierra los ojos lentamente y aprieta los dientes con ira. Primer plano de su rostro lleno de odio y traición.</p>
+        <span class="line"><b>Capitán</b>¡Gorrión!</span>
+        <p class="audio-note">Audio — la ira se mezcla con la batalla de fondo; la música baja para enfocar la tensión.</p></div></li>
+      <li class="beat"><div class="beat__t">0:45–1:00</div><div class="beat__b">
+        <h4>Corte a negro y revelación mágica</h4>
+        <p>Corte seco a negro. Luego, la silueta de José Gorrión abriendo el cofre. Desde dentro surge un resplandor verde mágico que ilumina su rostro. Sin diálogo.</p>
+        <p class="audio-note">Audio — efectos mágicos y crescendo de música misteriosa.</p></div></li>
+    </ul>
+  </article>
+
+  <!-- C2 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 02</span>
+      <h3>La traición de Gorrión</h3>
+      <p class="cine__obj">Mostrar la traición al capitán y el plan de huir con el cofre. El foco está en la tensión, la acción y la sorpresa cuando el cofre revela su poder.</p>
+      <div class="cine__mood"><span>Traición</span><span>Escape</span><span>Magia oculta</span><span>Desesperación</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>La nave oculta</h4>
+        <p>La nave escondida de Gorrión, situada en el fuerte, empieza a moverse hacia una salida secreta al mar. Paneles muestran el barco deslizándose en la oscuridad mientras el capitán narra la traición.</p>
+        <span class="line"><b>Capitán · voz en off</b>Esa salida… era nuestro último recurso. Pero Gorrión… siempre estuvo un paso adelante.</span>
+        <p class="audio-note">Audio — el barco sobre el agua, música tensa en crescendo.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>El escape</h4>
+        <p>Gorrión al mando, dirigiendo a su tripulación hacia la salida. Sus hombres intercambian miradas nerviosas mientras el cielo nocturno se ilumina por las explosiones a lo lejos.</p>
+        <span class="line"><b>Gorrión</b>¡Más rápido, antes de que nos vean!</span>
+        <span class="line"><b>Hombre de Gorrión</b>Todo está listo, capitán. Saldremos antes del amanecer.</span>
+        <p class="audio-note">Audio — cañones lejanos, agua agitada, murmullos nerviosos.</p></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>El derrumbe de la salida</h4>
+        <p>Justo cuando el barco está a punto de escapar, varios cañonazos certeros derrumban la salida y atrapan la nave dentro del fuerte.</p>
+        <span class="line"><b>Gorrión</b>¡¿Qué?!</span>
+        <span class="line"><b>Hombre de Gorrión</b>¡Nos han atrapado!</span>
+        <p class="audio-note">Audio — explosiones, piedras y escombros cayendo al mar, gritos de caos.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:45</div><div class="beat__b">
+        <h4>El hundimiento</h4>
+        <p>Con la salida bloqueada, el barco se inclina y el agua entra rápido. Gorrión y sus hombres intentan desesperadamente salvar el cofre.</p>
+        <span class="line"><b>Gorrión</b>¡Saca el cofre! ¡Rápido!</span>
+        <span class="line"><b>Hombre de Gorrión</b>¡Es demasiado tarde!</span>
+        <p class="audio-note">Audio — agua inundando la nave, crujidos de madera, pánico.</p></div></li>
+      <li class="beat"><div class="beat__t">0:45–1:00</div><div class="beat__b">
+        <h4>El resplandor verde</h4>
+        <p>La nave desaparece bajo el agua, pero en el último momento un leve resplandor verde emerge del fondo del mar. Los hombres lo observan con asombro y miedo. Gorrión, en silencio.</p>
+        <p class="audio-note">Audio — un sonido suave y mágico; la música baja a una atmósfera sobrenatural.</p></div></li>
+    </ul>
+  </article>
+
+  <!-- C3 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 03</span>
+      <h3>El sacrificio del Capitán</h3>
+      <p class="cine__obj">Mostrar el sacrificio del Capitán para detener la huida de Gorrión. Punto de no retorno que subraya su determinación.</p>
+      <div class="cine__mood"><span>Honor</span><span>Sacrificio</span><span>Redención</span><span>Aceptación</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>La nave del Capitán</h4>
+        <p>La nave avanza hacia la salida del fuerte. Sombras de los cañones enemigos alineándose y apuntando a la embarcación.</p>
+        <p class="audio-note">Audio — cañones preparándose, viento y mar agitado.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>La decisión</h4>
+        <p>Se alternan tomas de la nave de Gorrión avanzando hacia la salida y la expresión de determinación del Capitán al ver los cañones listos para disparar.</p>
+        <span class="line"><b>Tripulante</b>Capitán, estamos bajo ataque. Los cañones… ¡Van a derrumbar la salida!</span>
+        <p class="audio-note">Audio — voces en español con urgencia, cañones disparando.</p></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>Impacto y hundimiento</h4>
+        <p>Los cañonazos impactan las paredes del fuerte y bloquean la salida. La nave del Capitán es alcanzada por un proyectil y comienza a hundirse.</p>
+        <span class="line"><b>Marinero</b>¡Nos hundimos, Capitán!</span>
+        <p class="audio-note">Audio — impacto, maderas astillándose, agua entrando en la nave.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:50</div><div class="beat__b">
+        <h4>La sonrisa</h4>
+        <p>El Capitán, con el agua hasta las rodillas, sonríe mirando hacia la salida colapsada, sabiendo que ha detenido a Gorrión. Su mirada es de aceptación y orgullo.</p>
+        <span class="line"><b>Capitán · voz baja</b>Gorrión… no escaparás.</span>
+        <p class="audio-note">Audio — tono de aceptación y sacrificio.</p></div></li>
+      <li class="beat"><div class="beat__t">0:50–1:00</div><div class="beat__b">
+        <h4>Cierre</h4>
+        <p>La escena se apaga con el agua subiendo.</p>
+        <p class="audio-note">Audio — música dramática y melancólica mientras el sonido del agua crece. Silencio.</p></div></li>
+    </ul>
+  </article>
+
+  <!-- C4 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 04</span>
+      <h3>En rescate del cofre esmeralda</h3>
+      <p class="cine__obj">El capitán sobrevive, regresa a Cartagena con una nueva identidad y un plan para recuperar el cofre. Basado en el hecho real del ataúd varado en la costa.</p>
+      <div class="cine__mood"><span>Aventura</span><span>Traición</span><span>Misterios ocultos</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>El ataúd</h4>
+        <p>Un ataúd varado en las costas de Cartagena, con olas rompiendo suavemente. La cámara se acerca: tiene marcas de tiempo y deterioro.</p>
+        <p class="audio-note">Audio — sonido del mar y un leve eco del viento.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>Aparición del Capitán</h4>
+        <p>El capitán abre el ataúd; su rostro cansado pero determinado. La luz del sol ilumina su figura mientras se levanta.</p>
+        <span class="line"><b>Capitán</b>He regresado, y esta vez, con un plan.</span></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>Transformación en forastero</h4>
+        <p>Un bullicioso mercado de Cartagena. El capitán, disfrazado de rico forastero, interactúa con comerciantes y compra la gran casona. Vestido elegantemente, sonriendo con confianza. Plano de la casona siendo remodelada.</p>
+        <p class="audio-note">Audio — comerciantes y música alegre.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:50</div><div class="beat__b">
+        <h4>Plan de escape</h4>
+        <p>Montaje: el capitán dirige la reconstrucción de la popa mientras habla con los mestizos, sugiriendo su deseo de expulsar a los españoles.</p>
+        <span class="line"><b>Capitán</b>Construyamos túneles, así podremos salir sin ser vistos.</span></div></li>
+      <li class="beat"><div class="beat__t">0:50–1:00</div><div class="beat__b">
+        <h4>Explosión y destrucción</h4>
+        <p>Una explosión devastadora destruye la popa. El capitán observa con horror mientras el humo y las llamas consumen su trabajo.</p>
+        <p class="audio-note">Audio — explosiones, gritos de sorpresa y caos.</p></div></li>
+      <li class="beat"><div class="beat__t">1:00–1:10</div><div class="beat__b">
+        <h4>Construcción de túneles</h4>
+        <p>Montaje final: el capitán crea túneles y entradas en las cavernas junto a mestizos convencidos de su causa. La pantalla se oscurece con el eco de la última frase.</p>
+        <span class="line"><b>Capitán</b>Los túneles serán nuestra salvación. ¡Unámonos contra los opresores!</span></div></li>
+    </ul>
+  </article>
+
+  <!-- C5 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 05</span>
+      <h3>El barco</h3>
+      <p class="cine__obj">Tras años de trabajo, el Capitán conecta los túneles con las cavernas bajo el golfo y accede a un antiguo barco escondido. Aparece la segunda traición: la del mestizo.</p>
+      <div class="cine__mood"><span>Aventura</span><span>Descubrimiento</span><span>Traición inminente</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>Los túneles</h4>
+        <p>Túneles oscuros iluminados tenuemente por antorchas. El Capitán trabaja arduamente en la excavación.</p>
+        <p class="audio-note">Audio — martillo sobre piedra, eco de gotas cayendo en la caverna.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>Conexión de los túneles</h4>
+        <p>El Capitán conecta los túneles con un vasto sistema de cavernas que dan acceso al golfo. Un mapa antiguo se despliega mostrando la ruta hacia el barco escondido.</p>
+        <span class="line"><b>Capitán</b>¡Finalmente! Este es el camino que nos llevará a nuestro destino.</span>
+        <p class="audio-note">Audio — música épica que resalta el descubrimiento y la esperanza.</p></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>Sospecha del mestizo</h4>
+        <p>Un mestizo que ha estado observando desde la distancia empieza a sospechar. Su rostro, lleno de incertidumbre y curiosidad.</p>
+        <span class="line"><b>Mestizo · voz baja</b>¿Qué está tramando el Capitán?</span>
+        <p class="audio-note">Audio — pasos suaves y respiraciones mientras se mueve sigilosamente.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:50</div><div class="beat__b">
+        <h4>Encuentro con el barco</h4>
+        <p>El Capitán llega a la entrada oculta donde está el antiguo barco, cubierto de telarañas y moho pero aún imponente. Vista panorámica.</p>
+        <span class="line"><b>Capitán</b>¡Lo encontré! Este barco es nuestra única esperanza.</span>
+        <p class="audio-note">Audio — música que aumenta en intensidad, con misterio y emoción.</p></div></li>
+      <li class="beat"><div class="beat__t">0:50–1:00</div><div class="beat__b">
+        <h4>Revelación de la traición</h4>
+        <p>El mestizo aparece detrás del Capitán con la llave que había conseguido. El Capitán se da la vuelta, sorprendido.</p>
+        <span class="line"><b>Mestizo</b>No puedo dejar que sigas con esto, Capitán. No sé cuáles son tus verdaderas intenciones.</span>
+        <p class="audio-note">Audio — diálogo tenso, música oscura acompañando la confrontación.</p></div></li>
+      <li class="beat"><div class="beat__t">Cierre</div><div class="beat__b">
+        <h4>Enfrentamiento</h4>
+        <p>La cámara se aleja mostrando al Capitán y al mestizo en un tenso enfrentamiento, con el barco oscuro y enigmático al fondo. Fundido a negro.</p>
+        <p class="audio-note">Audio — la música se intensifica, dejando expectativa sobre lo que vendrá.</p></div></li>
+    </ul>
+  </article>
+
+  <!-- C6 -->
+  <article class="cine wide">
+    <div class="cine__head">
+      <span class="cine__no">Cinemática 06</span>
+      <h3>El cofre esmeralda</h3>
+      <p class="cine__obj">El Capitán alcanza el cofre y revela sus secretos. En una visión descubre la historia de su tataranieta, la señora Tremblay, y los horrores de usar el poder del cofre. Deja la carta.</p>
+      <div class="cine__mood"><span>Revelación</span><span>Legado</span><span>Advertencia</span><span>Asombro</span></div>
+    </div>
+    <ul class="beats">
+      <li class="beat"><div class="beat__t">0:00–0:10</div><div class="beat__b">
+        <h4>El cofre en la caverna</h4>
+        <p>El Capitán se acerca al cofre, que brilla intensamente en medio de la oscuridad. Su rostro mezcla emoción y ansiedad.</p>
+        <p class="audio-note">Audio — campanillas etéreas acompañando el brillo, atmósfera mágica.</p></div></li>
+      <li class="beat"><div class="beat__t">0:10–0:25</div><div class="beat__b">
+        <h4>Apertura del cofre</h4>
+        <p>Lo abre lentamente y una luz verde brillante emana del interior. Primer plano de su rostro iluminado.</p>
+        <span class="line"><b>Capitán</b>¿Qué secretos escondes, cofre esmeralda?</span>
+        <p class="audio-note">Audio — resplandor y crescendo musical de descubrimiento.</p></div></li>
+      <li class="beat"><div class="beat__t">0:25–0:35</div><div class="beat__b">
+        <h4>Visión de la señora Tremblay</h4>
+        <p>Una visión mágica se proyecta desde el cofre: escenas de la señora Tremblay en distintos momentos de su vida, enfrentando desafíos.</p>
+        <span class="line"><b>Capitán</b>¿Es ella mi tataranieta? ¿Qué conexión tenemos?</span>
+        <p class="audio-note">Audio — música melancólica y épica, con susurros que revelan su historia.</p></div></li>
+      <li class="beat"><div class="beat__t">0:35–0:50</div><div class="beat__b">
+        <h4>Horribles consecuencias</h4>
+        <p>Las imágenes cambian a momentos oscuros donde otros intentaron usar el poder del cofre, provocando caos y destrucción. Sombras y figuras siniestras emergen de la luz verde.</p>
+        <span class="line"><b>Capitán</b>El poder del cofre no es un regalo, es una carga. Debe ser protegido.</span>
+        <p class="audio-note">Audio — efectos ominosos y aumento de intensidad musical.</p></div></li>
+      <li class="beat"><div class="beat__t">0:50–1:00</div><div class="beat__b">
+        <h4>La carta</h4>
+        <p>El Capitán encuentra una carta enrollada dentro del cofre, que brilla con un aura especial. Primer plano de sus manos al tomarla.</p>
+        <span class="line"><b>Capitán</b>Esta carta… debe llegar a ti, señora Tremblay. La historia no termina aquí.</span>
+        <p class="audio-note">Audio — papel desenrollándose, música que enfatiza la importancia del legado.</p></div></li>
+      <li class="beat"><div class="beat__t">1:00–1:10</div><div class="beat__b">
+        <h4>Revelación del mestizo</h4>
+        <p>La cámara se mueve para mostrar al mestizo observando desde las sombras, habiendo seguido al Capitán. Su expresión es de asombro y deseo.</p>
+        <span class="line"><b>Mestizo</b>No puedo dejar que el Capitán se salga con la suya. Lo que descubra esta noche debe ser mío.</span>
+        <p class="audio-note">Audio — música tensa: hay más en juego de lo que parece.</p></div></li>
+      <li class="beat"><div class="beat__t">Cierre</div><div class="beat__b">
+        <h4>Fundido</h4>
+        <p>La cámara se aleja: el Capitán sostiene el cofre y la carta, el mestizo permanece oculto en la oscuridad. Fundido a negro. Nunca nadie volvió a saber del Capitán, y el hombre que lo siguió ha tratado desde entonces de encontrar lo que esa noche supo que el Capitán quería.</p>
+        <p class="audio-note">Audio — la música se intensifica, dejando anticipación sobre la lucha por el poder del cofre.</p></div></li>
+    </ul>
+  </article>
+</section>
+
+<!-- ============ 11 NIVELES ============ -->
+<section id="niveles">
+  <div class="sec__head"><span class="sec__num">11</span><h2>Los diez niveles</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap stack">
+    <p>La campaña es una secuencia fija de diez niveles. Los dos primeros son tutorial; a partir del tercero cada nivel introduce una mecánica nueva y rota el personaje jugable.</p>
+  </div>
+
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>#</th><th>Nivel</th><th>Personaje</th><th>Mecánica que introduce</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">01</td><td><strong>La Noticia</strong></td><td>Familia</td><td>Movimiento, interacción, inventario, puzzle de cajas</td></tr>
+        <tr><td class="mono">02</td><td><strong>El Aeropuerto</strong></td><td>Familia</td><td>Descifrar pistas, interacción con NPCs</td></tr>
+        <tr><td class="mono">03</td><td><strong>La casona</strong></td><td>Julien</td><td>Acertijo textual, minijuego, comodín (Leti)</td></tr>
+        <tr><td class="mono">04</td><td><strong>El cuarto secreto</strong></td><td>—</td><td>Enlace narrativo puro</td></tr>
+        <tr><td class="mono">05</td><td><strong>El vecino</strong></td><td>Julien</td><td>Sigilo, detección, checkpoints</td></tr>
+        <tr><td class="mono">06</td><td><strong>Casa de la Inquisición</strong></td><td>Lucía</td><td>Suspenso, ciclo día/noche, uso de objeto en sitio</td></tr>
+        <tr><td class="mono">07</td><td><strong>Los túneles</strong></td><td>Étienne + Éliane</td><td>Control dual, plataformeo 3D, descifrado con diario</td></tr>
+        <tr><td class="mono">08</td><td><strong>El convento</strong></td><td>—</td><td>Laberinto vertical, restauración de riel</td></tr>
+        <tr><td class="mono">09</td><td><strong>El castillo / fuerte</strong></td><td>Julien</td><td>Contrarreloj, sabotaje del entorno</td></tr>
+        <tr><td class="mono">10</td><td><strong>El barco</strong></td><td>Toda la familia</td><td>Posicionamiento, equilibrio, acertijo de dos llaves</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- L1 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">01</div>
+      <div class="level__id">
+        <h3>La Noticia</h3>
+        <div class="level__meta"><span class="level__pc">Tutorial</span><span class="level__tag">Casa de los Tremblay, Canadá</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Introducir las mecánicas fundamentales: movimiento, interacción con objetos y adquisición de vocabulario. Los jugadores ayudan a la familia a preparar el equipaje encontrando cuatro objetos clave repartidos por la casa.</dd>
+      <dt>Tema y ánimo</dt><dd>Ambiente doméstico, acogedor, con la preparación de un gran viaje. Iluminación suave y natural de tarde a través de las ventanas. Calma con anticipación creciente. Música tranquila y melodiosa; pasos, puertas y cajones refuerzan la interacción.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Sala de estar</strong> — punto de inicio. La madre asigna la tarea. Espacio iluminado con fotografías y muebles cómodos.</li>
+        <li><strong>Cocina</strong> — el sombrero amarillo está en un armario. Introduce la mecánica de apertura de objetos.</li>
+        <li><strong>Ático</strong> — la maleta roja, detrás de cajas apiladas que deben moverse. Introduce la resolución de puzzles.</li>
+        <li><strong>Dormitorio principal</strong> — el bolso azul sobre una silla y la maleta verde dentro de un armario cerrado con llave.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd>Sombrero amarillo · Maleta roja · Bolso azul · Maleta verde. La llave del armario está escondida en algún lugar de la casa, para forzar búsqueda e intriga.</dd>
+      <dt>Mecánicas</dt><dd><ul class="plain">
+        <li><strong>Movimiento en tercera persona</strong> (WASD) con cámara orbital, puntos de interés resaltados en el entorno.</li>
+        <li><strong>Interacción con objetos</strong>: al acercarse y activarlos se muestra y se escucha «sombrero amarillo» — sustantivo más adjetivo.</li>
+        <li><strong>Inventario</strong> consultable en todo momento.</li>
+        <li><strong>Puzzle simple</strong>: mover cajas en el ático.</li>
+        <li><strong>Diálogos contextuales</strong>: «Hola, ¿cómo te puedo ayudar?» al inicio, «Adiós, hasta pronto» al cerrar la misión.</li>
+      </ul></dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>La madre asigna la misión en la sala de estar.</li>
+        <li>El jugador explora las habitaciones recolectando los objetos.</li>
+        <li>Se introducen inventario y primeros puzzles junto con el vocabulario.</li>
+        <li>Con los cuatro objetos, vuelve a la sala y los entrega.</li>
+        <li>Pantalla de transición con el logo y el nombre del siguiente nivel, de 3 a 5 segundos.</li>
+      </ol></dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — assets de los cuatro objetos, muebles y decoración del hogar, cada objeto con resaltado propio. <strong>Programación</strong> — movimiento en tercera persona, interacción contextual, puzzles simples, inventario, carga por áreas. <strong>QA</strong> — interacción con cada objeto, claridad del vocabulario, estabilidad en móvil.</dd>
+    </dl>
+  </article>
+
+  <!-- L2 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">02</div>
+      <div class="level__id">
+        <h3>El Aeropuerto</h3>
+        <div class="level__meta"><span class="level__pc">Tutorial</span><span class="level__tag">Primer enigma</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Guiar al jugador por el aeropuerto introduciendo el primer enigma basado en pistas visuales y diálogos. Debe encontrar la puerta correcta a Cartagena siguiendo las pistas de un volante. Se introduce la interacción con NPCs.</dd>
+      <dt>Tema y ánimo</dt><dd>Viaje y exploración en un entorno público. Curiosidad y ligera confusión, con la sensación de orientarse en un espacio grande y concurrido.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Aeropuerto</strong> — gran espacio lleno de gente, con señales que guían a los viajeros. Iluminación brillante, anuncios y movimiento constante.</li>
+        <li><strong>Puertas de embarque</strong> — área clave donde se resuelve el enigma.</li>
+        <li><strong>Mostradores y zonas de espera</strong> — donde los NPCs dan indicaciones o mencionan su profesión.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd><strong>Volante con pistas</strong> en español, con instrucciones para seguir las puertas con círculo rojo. <strong>Puertas de embarque</strong> con distintos símbolos; solo una lleva el círculo rojo, el resto confunde.</dd>
+      <dt>Mecánicas</dt><dd>Movimiento en tercera persona, interacción con objetos e inventario como en el Nivel 01, más: <strong>resolución del enigma</strong> interpretando el volante, e <strong>interacción con NPCs</strong> que se presentan diciendo «Hola, soy [nombre]». Al preguntarles «Do you speak English?» responden con confusión y explican su profesión.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Llegada al aeropuerto y entrega del volante.</li>
+        <li>Exploración de mostradores y zonas de espera, conversando con NPCs.</li>
+        <li>Identificación de la puerta con el círculo rojo.</li>
+        <li>Embarque y transición a Cartagena.</li>
+      </ol></dd>
+    </dl>
+  </article>
+
+  <!-- L3 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">03</div>
+      <div class="level__id">
+        <h3>La casona</h3>
+        <div class="level__meta"><span class="level__pc">Juega: Julien</span><span class="level__tag">Llegada a Cartagena</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Exploración narrativa de la casona familiar, introduciendo resolución de puzzles y dos minijuegos —limpiar la fuente de las sirenas cazando ranas de colores, y preparar una receta en la cocina—, ambos pensados para reforzar vocabulario en español, mientras se desarrollan el entorno histórico y la historia familiar.</dd>
+      <dt>Tema y ánimo</dt><dd>Misterio y exploración histórica con humor familiar. Descubrimiento y curiosidad, contrastados con la ligereza de los diálogos y los comentarios del niño sobre lo sucia que está la fuente.</dd>
+      <dt>Espacios</dt><dd>
+        <p><strong>Primer piso.</strong></p>
+        <ul class="plain">
+          <li><strong>Zona exterior</strong> — patios y fuente de las sirenas, punto focal del nivel. Jardines con objetos interactivos, estatuas y relieves de piratas.</li>
+          <li><strong>Sala de estar</strong> — entrada principal que conecta con cocina y patios. Área central de interacción con la familia.</li>
+          <li><strong>Cocina</strong> — utensilios y electrodomésticos interactivos para expandir vocabulario, con detalles del pasado colonial.</li>
+          <li><strong>Patio interior</strong> — jardín central accesible desde cocina y sala, con más objetos históricos y otra vista de la fuente.</li>
+        </ul>
+        <p><strong>Segundo piso.</strong></p>
+        <ul class="plain">
+          <li><strong>Biblioteca</strong> — el espacio más narrativo. Estantes altos y un gran ventanal. Aquí se introduce Leti, la lora, en lo alto, incitando a la exploración vertical.</li>
+          <li><strong>Cuartos</strong> — detalles ambientales y objetos con pistas de la historia familiar.</li>
+          <li><strong>Ático</strong> — polvoriento y desordenado, lleno de reliquias. Introduce futuros misterios.</li>
+        </ul>
+      </dd>
+      <dt>Objetos clave</dt><dd><ul class="plain">
+        <li><strong>Diario familiar</strong> — contiene las pistas del enigma de la fuente. En un estante alto de la biblioteca, accesible tras interactuar con Leti.</li>
+        <li><strong>Fuente de las sirenas</strong> — presenta el enigma <em>«Arriba el cielo, al medio el mar, abajo la verdad»</em>.</li>
+        <li><strong>El dron de Julien</strong> — herramienta del minijuego de la fuente y compañero permanente del personaje.</li>
+        <li><strong>Libro «Ranas de Colombia»</strong> — guía de especies que Éliane encuentra en la casona. Al iniciarse el minijuego pasa a la interfaz como catálogo consultable; es la lista de vocabulario del minijuego hecha objeto.</li>
+        <li><strong>Ranas de colores</strong> — habitan la fuente; hay que atraparlas para vaciarla. Cada color es una especie distinta, con su propio vocabulario. Muchas parecen venenosas, así que no se tocan — de ahí el dron. Además se pelean entre ellas si se las mezcla mal.</li>
+        <li><strong>Alacena</strong> — particularmente grande, dentro de la cocina; guarda todos los ingredientes del banquete.</li>
+        <li><strong>Listado de recetas</strong> — la esposa del mayordomo se lo entrega a los niños, en español.</li>
+        <li><strong>Leti, la lora</strong> — NPC comodín, ofrece pistas y desbloquea elementos.</li>
+        <li><strong>Estatuas de piratas</strong> — interactivas, enseñan la historia pirata de la ciudad.</li>
+      </ul></dd>
+      <dt>Mecánicas</dt><dd><ul class="plain">
+        <li><strong>Puzzle de la fuente</strong> basado en interpretar la inscripción.</li>
+        <li><strong>Minijuego «Caza de ranas» — se juega con el dron, en pareja.</strong> Julien saca las ranas del estanque pilotando su dron mientras Éliane las identifica y le canta el color en español. Las ranas nadan con movimiento errático y huyen si el dron se acerca demasiado. Al marcar una rana se abre una <strong>zona de captura</strong> que sigue al dron y se va encogiendo; si la rana permanece dentro el tiempo suficiente antes de que la zona termine de cerrarse, queda atrapada — si no, escapa y hay que intentarlo de nuevo. Un contador por color (especie) registra cuántas se han atrapado. Detalle completo abajo.</li>
+        <li><strong>El dron como personaje.</strong> Durante el minijuego el dron no se comporta solo como una herramienta: reacciona, se impacienta, parece anticiparse. Julien le habla. No se aclara si obedece o si decide — ver la <a href="#personajes">regla de ambigüedad</a>.</li>
+        <li><strong>Minijuego «El banquete».</strong> Detallado abajo — descifrar la receta, ir por los ingredientes a la alacena y prepararla en el área de cocina.</li>
+        <li><strong>Interacción con Leti</strong>: el niño le pide que baje y la lora responde <em>«Leti arriba»</em>. Minijuego para enseñar arriba, abajo, izquierda y derecha.</li>
+        <li><strong>Puzzle secundario del ático</strong>: mover cajas y muebles.</li>
+        <li><strong>Recopilación de pistas</strong> vía diario, e interacciones ambientales opcionales que enriquecen el mundo.</li>
+      </ul></dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Sala de estar: la madre asigna la misión de vaciar la fuente y menciona los objetos piratas.</li>
+        <li>Patio exterior: el niño bromea sobre la suciedad y las ranas; el papá comenta lo mucho que les gustaban los piratas; la hija se fija en el texto sobre las sirenas.</li>
+        <li>Al tocar el acertijo, se resalta el diario en la interfaz.</li>
+        <li>Resuelto el acertijo, se activa el minijuego de caza de ranas hasta vaciar la fuente.</li>
+        <li>Exploración del primer piso: en la cocina, la esposa del mayordomo pide ayuda con el banquete — minijuego de El banquete.</li>
+        <li>Segundo piso: biblioteca y encuentro con Leti.</li>
+        <li>Cuartos y ático.</li>
+        <li>Regreso a la sala de estar con el diario. Cinemática corta que cierra el nivel.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>Highlight suave en objetos interactivos. Animación del agua al vaciar la fuente y de las ranas nadando/saltando. En la caza de ranas, la zona de captura se encoge visiblemente y cambia de color al tener éxito o fallar, con sonido distinto para cada resultado. Contador de ranas atrapadas por color. Feedback sonoro inmediato al recoger objetos e ingredientes.</dd>
+      <dt>Técnico</dt><dd>Carga por áreas al cruzar puertas. Diario accesible desde un ícono persistente que se despliega sin interrumpir la jugabilidad. Guardado automático en puntos clave. Tipografía clara y ajustable. En móvil, la caza de ranas usa toque directo sobre la pantalla en vez del cursor de mouse del prototipo original.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — interiores de la casona con detalles históricos, cuadros, estatuas y relieves piratas; fuente de sirenas con ranas de distintos colores y resplandor verde al resolver; alacena grande, ingredientes y utensilios de cocina; modelado de Leti y de la esposa del mayordomo con expresiones animadas; el dron tortuga de Julien, con personalidad en su animación (ladeos, reacciones, impaciencia). <strong>Programación</strong> — puzzle de la fuente, minijuego de caza de ranas (spawner, movimiento errático, zona de captura encogible), minijuego de El banquete (descifrado de receta, recolección con cantidades, estación de preparación con acciones y tiempos), diálogo de Leti, exploración de los dos pisos. <strong>QA</strong> — fluidez de ambos minijuegos y del puzzle de la fuente, interacciones con Leti y objetos, rendimiento en móvil.</dd>
+    </dl>
+    <div class="note note--src">
+      <h4>Fuente</h4>
+      <p>El minijuego de caza de ranas ya tiene un prototipo funcional en <code>My project/Assets/Scripts/ranas/</code> (<code>FrogSpawner</code>, <code>FrogMovement</code>, <code>CaptureArea</code>, <code>FrogCounterUI</code>): spawnea ranas de hasta 5 colores con probabilidades configurables, cada una con movimiento y huida propios, y una zona de captura que se encoge con el tiempo. <strong>Adaptación pendiente:</strong> en el prototipo la zona de captura sigue al cursor del ratón; ahora debe seguir <strong>al dron</strong>, que el jugador pilota. El minijuego de El banquete —descrito en detalle abajo— es nuevo, sin prototipo todavía.</p>
+    </div>
+
+    <h4 style="margin-top:26px">Minijuego «Caza de ranas» — diseño de detalle</h4>
+    <div class="wrap stack">
+      <p>El minijuego arranca con una escena entre los dos hermanos que instala, en menos de un minuto, todas sus reglas: por qué no se pueden tocar las ranas, para qué sirve el libro, y de quién fue la idea del dron.</p>
+    </div>
+
+    <div class="cine wide" style="margin-top:18px">
+      <div class="cine__head">
+        <span class="cine__no">Escena de apertura</span>
+        <h3>La idea del dron</h3>
+        <p class="cine__obj">Se escucha a Lucía a lo lejos y Éliane recuerda que hay que limpiar la fuente.</p>
+      </div>
+      <ul class="beats">
+        <li class="beat"><div class="beat__t">Julien</div><div class="beat__b">
+          <p>Entre risas.</p>
+          <span class="line">Tendremos que sacar las ranas primero. Suerte que amas los animales, porque yo no pienso tocarlos.</span></div></li>
+        <li class="beat"><div class="beat__t">Éliane</div><div class="beat__b">
+          <p>Con un libro en las manos. Lee el título con acento inglés.</p>
+          <span class="line">Mira esto. <em>Ranas de Colombia.</em></span></div></li>
+        <li class="beat"><div class="beat__t">Julien</div><div class="beat__b">
+          <p>Le quita el libro mientras la corrige, haciendo bien el sonido de la <em>rr</em>.</p>
+          <span class="line">No se dice así. Se dice <strong>Ranas de Colombia</strong>.</span></div></li>
+        <li class="beat"><div class="beat__t">Éliane</div><div class="beat__b">
+          <p>Con risita burlona.</p>
+          <span class="line">Qué ruidito tan chistoso. Usaré este libro para sacar las ranas de la fuente sin que se peleen.</span></div></li>
+        <li class="beat"><div class="beat__t">Julien</div><div class="beat__b">
+          <span class="line">No será tan fácil. Muchas de estas parecen venenosas, será mejor no tocarlas.</span></div></li>
+        <li class="beat"><div class="beat__t">Éliane</div><div class="beat__b">
+          <span class="line">Qué suerte. Digámosle a mamá que podríamos morir y no tendremos que limpiar la fuente nosotros.</span></div></li>
+        <li class="beat"><div class="beat__t">Julien</div><div class="beat__b">
+          <p>Se le ocurre. Los hermanos se miran con malicia.</p>
+          <span class="line">¡Oh! Usemos al dron para que las coja, y lo manejamos de lejos.</span></div></li>
+        <li class="beat"><div class="beat__t">Éliane</div><div class="beat__b">
+          <p>Lo piensa un segundo y estalla, eufórica. Salen corriendo. <strong>El libro se desplaza a la interfaz</strong> y queda ahí como guía consultable.</p>
+          <span class="line">¡GRAN IDEA!</span></div></li>
+      </ul>
+    </div>
+
+    <div class="wrap stack">
+      <p>La escena deja instaladas cuatro reglas de juego sin explicar ninguna como tutorial:</p>
+      <ul class="plain">
+        <li><strong>Las ranas son venenosas → no se tocan.</strong> Justificación diegética del dron: hay que manejarlo <em>de lejos</em>.</li>
+        <li><strong>Las ranas se pelean entre sí.</strong> No basta con sacarlas: hay que sacarlas en el orden o la combinación correcta para que no se enfrenten.</li>
+        <li><strong>El libro <em>Ranas de Colombia</em> es la guía.</strong> Al terminar la escena pasa de ser un objeto del mundo a un elemento permanente de la interfaz: el catálogo donde se consulta cada especie, su color y su nombre en español. Es, en la práctica, <strong>la lista de vocabulario del minijuego</strong> presentada como objeto del mundo.</li>
+        <li><strong>La pronunciación importa.</strong> El gag de la <em>rr</em> lo establece sin decirlo, y de paso invierte la jerarquía esperada: el hermano menor corrige a la mayor.</li>
+      </ul>
+    </div>
+
+    <h4 style="margin-top:22px">Reparto de roles: los dos hermanos juegan</h4>
+    <div class="wrap stack">
+      <p>Aunque el personaje controlado es Julien, el minijuego es <strong>cooperativo</strong> y cada hermano hace una mitad:</p>
+      <ul class="plain">
+        <li><strong>Éliane — la que identifica.</strong> Localiza las ranas y le avisa a Julien <strong>qué color de rana ha encontrado</strong>, nombrándolo en español. Es quien consulta el libro. Para el jugador esto funciona como ejercicio de comprensión auditiva: hay que entender el color que ella dice para saber a cuál ir.</li>
+        <li><strong>Julien — el que pilota.</strong> Maneja el dron, cierra la zona de captura sobre la rana señalada y la extrae.</li>
+      </ul>
+      <p>El intercambio entre ambos durante la partida es también el vehículo del humor y del vínculo entre hermanos: ella se burla de su pronunciación, él se burla de que le tocó la parte fácil, y ambos comentan lo que va saliendo de la fuente.</p>
+    </div>
+    <div class="note note--open">
+      <h4>Falta definir</h4>
+      <p>Cuántas especies entran en el libro y cuáles son —conviene que sean ranas colombianas reales, coherente con el título—; qué pasa exactamente cuando dos ranas incompatibles se encuentran y cómo se comunica al jugador; dónde van las ranas extraídas (¿recipientes separados por especie, lo que convertiría la extracción en una tarea de clasificación por color?); y si Éliane nombra solo el color o también la especie, lo que cambia el volumen de vocabulario del minijuego.</p>
+    </div>
+
+    <h4 style="margin-top:26px">Minijuego «El banquete» — diseño de detalle</h4>
+    <div class="wrap stack">
+      <p>Los niños Tremblay ayudan a la <strong>esposa del mayordomo</strong> a preparar un banquete. Ella les entrega un <strong>listado de recetas</strong> en español; como los niños no conocen el idioma, primero deben <strong>descifrar</strong> cada receta para entender qué ingredientes lleva, en qué cantidad, qué acción de cocina requiere cada uno (cortar, hervir, machacar, mezclar) y, si el paso lo pide, cuánto tiempo toma.</p>
+    </div>
+    <ol class="flow wide">
+      <li><strong>Encargo.</strong> La esposa del mayordomo entrega el listado de recetas del banquete, en español.</li>
+      <li><strong>Descifrado de la receta.</strong> Con la mecánica de <a href="#mecanicas">Descifrar</a>, el jugador interpreta la receta: qué ingredientes, en qué cantidad, con qué acción y —cuando aplica— con qué tiempo de cocción.</li>
+      <li><strong>Ir a la alacena.</strong> La alacena es particularmente grande; el jugador recorre sus estantes buscando y recolectando los ingredientes que la receta descifrada pide, en las cantidades correctas.</li>
+      <li><strong>Preparación.</strong> De vuelta en el área de cocina, el jugador coloca en el puesto de trabajo: la cantidad correcta de cada ingrediente, la acción que le corresponde (cortar / hervir / machacar / mezclar) y, si el paso lo requiere, el tiempo indicado.</li>
+      <li><strong>Resultado.</strong> Si la receta se preparó correctamente sale un <strong>plato terminado</strong>. Si algo falla, <strong>los ingredientes puestos se pierden</strong> y el jugador debe volver a la alacena por más antes de reintentar.</li>
+    </ol>
+    <div class="note note--open">
+      <h4>Falta definir</h4>
+      <p>Cuántas recetas componen el banquete y si se cocinan en un orden fijo o libre; el detalle de interacción para cada acción de cocina (cortar/hervir/machacar/mezclar son cuatro minijuegos o gestos distintos, o una sola interacción genérica con distinta animación); si el tiempo de cocción corre en tiempo real mientras el jugador sigue jugando o pausa la escena; y qué tan severo es el castigo por fallar —solo se pierden los ingredientes de ese intento, o también cuenta contra algún límite del nivel.</p>
+    </div>
+  </article>
+
+  <!-- L4 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">04</div>
+      <div class="level__id">
+        <h3>El cuarto secreto</h3>
+        <div class="level__meta"><span class="level__pc">Enlace narrativo</span><span class="level__tag">2–3 minutos</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Introducir un espacio importante para la historia donde el jugador descubre pistas clave sobre el misterio de Cartagena. Funciona como enlace narrativo más que como desafío jugable.</dd>
+      <dt>Tema y ánimo</dt><dd>Descubrimiento y misterio. Expectativa y tensión, con atmósfera de secreto y revelación en un ambiente tenue.</dd>
+      <dt>Espacios</dt><dd>Un cuarto oculto, iluminado tenuemente por luces que se encienden automáticamente al entrar. Paredes cubiertas de mapas antiguos, documentos y artefactos relacionados con la historia de Cartagena y el cofre.</dd>
+      <dt>Objetos clave</dt><dd><strong>Hoja del diario</strong> — un pedazo del diario familiar con tres lugares destacados en un mapa de Cartagena y una «X» marcando el Fuerte San Felipe. Es la pista principal para avanzar.</dd>
+      <dt>Mecánicas</dt><dd>Movimiento en tercera persona, interacción con objetos e inventario. Exploración acotada: examinar el mapa, los documentos y los artefactos.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>El jugador entra y las luces se encienden solas, iluminando los objetos importantes.</li>
+        <li>Examina la hoja del diario con los tres lugares y la «X» en San Felipe.</li>
+        <li>Recogida la hoja, el nivel termina y se avanza al siguiente destino.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>Iluminación automática tenue al entrar, con efecto dramático. La hoja del diario y los artefactos importantes brillan sutilmente. Interfaz mínima: solo se muestran objetos clave y pistas al interactuar.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — entorno oculto con mapas, documentos antiguos y artefactos; diseño del mapa con los tres lugares y la «X». <strong>Programación</strong> — sistema de luces automáticas, interacción con la hoja del diario. <strong>QA</strong> — verificación de interacciones y de la activación de luces.</dd>
+    </dl>
+  </article>
+
+  <!-- L5 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">05</div>
+      <div class="level__id">
+        <h3>El vecino</h3>
+        <div class="level__meta"><span class="level__pc">Juega: Julien</span><span class="level__tag">Nivel de sigilo</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Recuperar el diario familiar infiltrándose en la casa del vecino sin ser detectado. Se introduce la mecánica de sigilo, con cámaras de seguridad y empleados patrullando la propiedad.</dd>
+      <dt>Tema y ánimo</dt><dd>Sigilo, tensión y desafío. Suspenso, cautela y un toque de adrenalina: el jugador debe estar atento en todo momento, creando sensación de peligro latente.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Exterior</strong> — jardín amplio con arbustos, cercas y rutas alternativas. Algunos arbustos sirven de escondite temporal.</li>
+        <li><strong>Interior</strong> — sala de estar, oficina del vecino (donde está el diario) y corredores con cámaras posicionadas para cubrir las rutas fáciles.</li>
+        <li><strong>Escondites</strong> — armarios, cortinas y muebles.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd><strong>Cámaras de seguridad</strong> con patrones de movimiento observables. <strong>Empleados patrullando</strong> con rutas fijas que hay que memorizar. <strong>Diario familiar</strong>, en el escritorio de la oficina.</dd>
+      <dt>Mecánicas</dt><dd><ul class="plain">
+        <li><strong>Barra de detección</strong> que indica qué tan cerca está el jugador de ser descubierto; si se llena, es atrapado.</li>
+        <li><strong>Desactivar cámaras</strong> mediante interruptores ocultos.</li>
+        <li><strong>Escondites temporales</strong> en armarios o detrás de muebles.</li>
+        <li><strong>Puntos de control</strong> para retomar el nivel sin repetirlo entero.</li>
+      </ul></dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Inicio en el jardín: observar y planificar la ruta.</li>
+        <li>Avance usando arbustos y escondites naturales hasta la entrada.</li>
+        <li>Interior: nuevas cámaras y patrullas; desactivar cámaras cuando sea necesario.</li>
+        <li>Llegada a la oficina: tomar el diario rápido.</li>
+        <li>Escape: volver al jardín sin ser visto, por la misma ruta o una nueva más segura.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>Barra de detección en la parte superior. Cono de visión visible en las cámaras. Los empleados emiten sonido al acercarse. Interruptores resaltados. Si el jugador es visto, alerta visual y sonora y fundido antes de reiniciar en el checkpoint.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — jardín e interiores de una casa moderna, empleados con animaciones de patrullaje y atuendos variados, el vecino como personaje distintivo, cámaras con cono de visión, indicadores de detección. <strong>Programación</strong> — IA de rutas de patrullaje, sistema de cámaras e interruptores, barra de detección, escondites, checkpoints. <strong>QA</strong> — detección de IA y cámaras, validación del sigilo, rendimiento en móvil.</dd>
+    </dl>
+  </article>
+
+  <!-- L6 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">06</div>
+      <div class="level__id">
+        <h3>La casa de la Inquisición</h3>
+        <div class="level__meta"><span class="level__pc">Juega: Lucía</span><span class="level__tag">Museo · suspenso</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>La madre explora la Casa de la Inquisición buscando una llave que le permita acceder a una reja cerrada al público. Resuelve acertijos, encuentra objetos clave y descubre secretos oscuros del lugar.</dd>
+      <dt>Tema y ánimo</dt><dd>Suspenso, misterio e historia oscura. Atmósfera tensa con sensación de persecución constante: ruidos de gritos, cadenas y susurros inquietantes.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Entrada principal</strong> — oscura y polvorienta, con artefactos de la época. Gran puerta de madera que cruje. Candelabros colgantes; cuadros de personajes históricos que parecen seguir al jugador con la mirada.</li>
+        <li><strong>Cadalso</strong> — área central inquietante, con sombras alargadas y un gran péndulo oscilante. En el centro, una palanca conectada a una entrada secreta. Gradas de madera gastadas y sillas de juicio.</li>
+        <li><strong>Habitaciones y pasillos</strong> — instrumentos de tortura, libros y documentos de los procesos inquisitoriales. Vitrinas y retratos de inquisidores.</li>
+        <li><strong>Túneles ocultos</strong> — al final del nivel. Puerta con una marca idéntica a la del diario. Pasadizos de piedra, suelo húmedo y luces parpadeantes que revelan símbolos antiguos.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd><strong>Llave</strong> para abrir la reja cerrada al público. <strong>Palanca</strong> del cadalso, que activa una entrada secreta. <strong>Diario</strong>, que explica la marca de la puerta y da contexto histórico.</dd>
+      <dt>Mecánicas</dt><dd>Movimiento en tercera persona, interacción e inventario. <strong>Exploración interactiva</strong> por habitación. <strong>Inmersión de terror</strong> con pasos lejanos, gritos y cadenas. <strong>Resolución de puzzles</strong> ligados a la historia de la Inquisición.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Frente al museo: la madre comenta la importancia de la llave y los rumores del lugar.</li>
+        <li>Entrada: breve secuencia que muestra la decoración opresiva; gritos y cadenas de fondo.</li>
+        <li>Vestíbulo: interacción con exposiciones que dan pistas sobre la historia y la llave.</li>
+        <li>Búsqueda de la llave por los cuartos, resolviendo acertijos menores.</li>
+        <li>Cadalso: al accionar la palanca se desbloquea un pasadizo secreto, todavía inaccesible.</li>
+        <li>Descubrimiento de la puerta con la marca idéntica a la del diario.</li>
+        <li>La madre debe volver de noche, cuando la casa está menos vigilada.</li>
+        <li>Colocación del objeto clave en el sitio adecuado: la puerta se abre.</li>
+        <li>Acceso a los túneles: oscuridad, ecos y sombras en movimiento.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>El inventario resalta el objeto en mano y su uso potencial. Sombras que parecen moverse, luces tenues que brillan cerca de objetos importantes. Cambios sutiles en la música cuando la madre está cerca de ser descubierta.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — museo con exposiciones, objetos históricos, la reja y la palanca del cadalso; iluminación de tensión con parpadeos y sombras. <strong>Programación</strong> — mecánicas de sigilo y acertijos, sistema de interacción con objetos y eventos. <strong>QA</strong> — verificación de interacciones y coherencia del flujo. Sonido ambiental que cambia por ubicación; transiciones fluidas entre habitaciones y túneles.</dd>
+    </dl>
+  </article>
+
+  <!-- L7 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">07</div>
+      <div class="level__id">
+        <h3>Los túneles</h3>
+        <div class="level__meta"><span class="level__pc">Juegan: Étienne + Éliane</span><span class="level__tag">Plataforma 3D · laberinto</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>El padre y la hija se abren camino por los túneles subterráneos que conectan la casona con el fuerte, resolviendo enigmas basados en el diario pirata, superando secciones de plataformas y cooperando entre ambos personajes.</dd>
+      <dt>Tema y ánimo</dt><dd>Exploración subterránea, enigmas y peligros bajo el océano. Claustrofobia e incertidumbre, con la sensación de que el océano está encima en todo momento: agua filtrándose, crujidos en la estructura y el peligro inminente de derrumbes o inundaciones.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Entrada</strong> — bajo la casona, deteriorada, con grietas en el suelo y paredes de piedra que gotean. Raíces y musgo crean una atmósfera húmeda.</li>
+        <li><strong>Pasillos</strong> — estrechos y serpenteantes, con tramos en ruinas. Ventanas circulares tipo escotilla de submarino permiten ver el océano por encima.</li>
+        <li><strong>Secciones de plataformas</strong> — tramos destruidos que obligan a saltar, agacharse y construir puentes improvisados.</li>
+        <li><strong>Cámaras de enigmas</strong> — salas amplias con paredes cubiertas de inscripciones antiguas que se descifran con el diario pirata.</li>
+        <li><strong>Salida</strong> — conecta con el fuerte, bloqueada por una puerta antigua que solo abre resolviendo el enigma final.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd><strong>Diario pirata</strong> — guía y herramienta: pistas, mapas antiguos y traducciones de símbolos. <strong>Cuerda y maderas</strong> — reparan puentes rotos. <strong>Palanca de mecanismos</strong> — activa puertas secretas. <strong>Llave antigua</strong> — abre la puerta final, oculta tras el enigma principal.</dd>
+      <dt>Mecánicas</dt><dd><ul class="plain">
+        <li><strong>Control dual.</strong> El padre es más fuerte: mueve objetos pesados, tiende puentes y sella huecos. La hija es más ágil: pasa por espacios pequeños, traduce acertijos y activa mecanismos complejos.</li>
+        <li><strong>Plataformas.</strong> Saltos entre plataformas, construcción de puentes con objetos del entorno, agacharse para evitar obstáculos, tablones para cruzar derrumbes.</li>
+        <li><strong>Enigmas.</strong> Consultar el diario para traducir y abrir puertas ocultas; colocar objetos en lugares específicos o activar palancas.</li>
+        <li><strong>Riesgo de inundación.</strong> Los túneles se inundan si no se tapan huecos o sellan secciones a tiempo, añadiendo urgencia.</li>
+      </ul></dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Entrada de los túneles: los personajes comentan la dificultad y las pistas del diario.</li>
+        <li>Exploración inicial con habilidades complementarias; caminos alternativos con pistas ocultas en las paredes.</li>
+        <li>Primera cámara de enigmas: descifrar inscripciones para abrir una puerta secreta.</li>
+        <li>Sección colapsada: el padre construye puentes mientras la hija explora pasajes angostos.</li>
+        <li>La música se intensifica al acercarse a la puerta final; se resuelve el enigma de símbolos y se abre el acceso al fuerte.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>El inventario resalta herramientas y su uso potencial. Sombras que se mueven con la luz del océano a través de las escotillas, partículas flotantes, agua goteando. Ecos del agua y vibraciones de la estructura anuncian derrumbes o inundaciones.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — túneles oscuros y húmedos mezclando arquitectura antigua con restos modernos, ventanas submarinas y mecanismos antiguos. <strong>Programación</strong> — plataformas, interacción dual, sistema de enigmas. <strong>QA</strong> — fluidez del control de ambos personajes.</dd>
+    </dl>
+  </article>
+
+  <!-- L8 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">08</div>
+      <div class="level__id">
+        <h3>El convento</h3>
+        <div class="level__meta"><span class="level__pc">Laberinto vertical</span><span class="level__tag">Escalera en espiral</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Explorar el convento, resolver puzzles ambientales y encontrar la entrada secreta que conduce a una enorme escalera en espiral. Descender la estructura usando objetos y mecanismos, restaurando las partes faltantes del riel para completar el escape.</dd>
+      <dt>Tema y ánimo</dt><dd>Exploración, aventura y acertijos con elementos históricos y de misterio. Descubrimiento y desafío, con tensión durante el descenso.</dd>
+      <dt>Espacios</dt><dd><ul class="plain">
+        <li><strong>Convento</strong> — antiguo, con múltiples salas y corredores que hay que explorar para hallar la entrada secreta.</li>
+        <li><strong>Escalera en espiral</strong> — estructura enorme con andamios antiguos y huecos que hacen el descenso un desafío. Área oscura.</li>
+        <li><strong>Andamios y plataformas</strong> — algunos sectores permiten bajar rápido; otros obligan a subir y bajar, creando un laberinto vertical.</li>
+        <li><strong>Riel de tesoros</strong> — al final de la espiral, restos de un viejo sistema de rieles que usaban los piratas para transportar tesoros. Faltan partes que deben restaurarse.</li>
+      </ul></dd>
+      <dt>Objetos clave</dt><dd><strong>Fragmentos del riel</strong> a encontrar y colocar en las secciones faltantes. <strong>Mecanismos de activación</strong> — palancas que abren pasajes o activan plataformas. <strong>Bastones de minero</strong> — transportan tesoros por el riel y luego al barco.</dd>
+      <dt>Mecánicas</dt><dd>Exploración ambiental para hallar la entrada secreta. Movimiento vertical con huecos insalvables que obligan a buscar rutas alternativas. Puzzles de restauración del riel. Activación de palancas y mecanismos para desbloquear áreas.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>Exploración de las habitaciones del convento y acertijos para abrir la entrada secreta.</li>
+        <li>Descenso por la espiral, enfrentando huecos y plataformas en un laberinto vertical.</li>
+        <li>Restauración del riel al llegar al final del espiral.</li>
+        <li>Activación de mecanismos que habilitan el movimiento de los bastones de minero.</li>
+        <li>Cierre con los rieles restaurados y los bastones en posición.</li>
+      </ol></dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — convento colonial con elementos religiosos antiguos, escalera en espiral y andamios envejecidos, rieles, palancas y fragmentos; efectos visuales de activación y transporte. <strong>Programación</strong> — movimiento vertical, lógica de restauración del riel, optimización de la navegación laberíntica. <strong>QA</strong> — navegación vertical, interacción con puzzles, rendimiento en móvil.</dd>
+    </dl>
+  </article>
+
+  <!-- L9 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">09</div>
+      <div class="level__id">
+        <h3>El castillo o fuerte</h3>
+        <div class="level__meta"><span class="level__pc">Juega: Julien</span><span class="level__tag">Contrarreloj</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>El niño debe detener al vecino y sus secuaces antes de que accedan al barco, usando mecánicas y elementos del entorno para obstaculizar su avance.</dd>
+      <dt>Tema y ánimo</dt><dd>Suspenso y acción. Tensión y urgencia, con un sentido de desafío: hay que actuar rápido.</dd>
+      <dt>Espacios</dt><dd>El fuerte como laberinto de pasillos oscuros, puertas cerradas y habitaciones estratégicas. Elementos clave: cerraduras, trampas y mecanismos para inundar pasillos o alertar a los guardias.</dd>
+      <dt>Objetos clave</dt><dd><strong>Cerraduras</strong> para cerrar puertas. <strong>Trampas</strong> para crear obstáculos. <strong>Fuentes de agua</strong> para inundar pasillos.</dd>
+      <dt>Mecánicas</dt><dd><strong>Contrarreloj</strong> que marca el tiempo disponible antes de que el vecino llegue al barco. <strong>Interacción con el entorno</strong> para manipular objetos y activar mecanismos. <strong>Uso de adjetivos</strong>: el vocabulario aprendido describe objetos y acciones, haciendo que el jugador reconozca sus interacciones.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>El niño está en el fuerte, escuchando los planes del vecino y sus secuaces.</li>
+        <li>Explora rápidamente y usa los objetos clave para cerrar puertas y crear obstáculos.</li>
+        <li>Encuentra la fuente de agua y la activa para inundar el camino de los secuaces.</li>
+        <li>Usa mecanismos para alertar a los guardias, creando distracciones que retrasan al vecino.</li>
+        <li>Logra detenerlo justo antes de que acceda al barco.</li>
+      </ol></dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — paredes, pisos y techos del fuerte con elementos medievales y oscuros; antorchas, puertas y trajes de guardias. <strong>Programación</strong> — sistema de contrarreloj, interacciones del entorno, IA del vecino y sus secuaces reaccionando a las acciones del jugador. <strong>QA</strong> — balance del contrarreloj y funcionamiento de todas las interacciones.</dd>
+    </dl>
+  </article>
+
+  <!-- L10 -->
+  <article class="level">
+    <div class="level__head">
+      <div class="level__num">10</div>
+      <div class="level__id">
+        <h3>El barco</h3>
+        <div class="level__meta"><span class="level__pc">Juega: toda la familia</span><span class="level__tag">Clímax</span></div>
+      </div>
+    </div>
+    <dl class="spec">
+      <dt>Objetivo</dt><dd>Reunir a todos los miembros de la familia en el barco y resolver el acertijo de las dos llaves. La dinámica implica ubicar a los personajes en posiciones específicas y equilibrar el barco sobre dos grandes rocas.</dd>
+      <dt>Tema y ánimo</dt><dd>Aventura familiar, trabajo en equipo y resolución de acertijos. Emoción y tensión: el tiempo es limitado y hay urgencia.</dd>
+      <dt>Espacios</dt><dd><strong>Barco</strong> — cubierta, popa e interior, con espacios donde los personajes deben moverse. <strong>Rocas</strong> — dos grandes rocas que lo sostienen, cada una con una mecánica específica para equilibrar la carga. <strong>Elementos interactivos</strong> — cajas, cuerdas y anclas para equilibrar.</dd>
+      <dt>Objetos clave</dt><dd><strong>Dos llaves</strong>, necesarias para el acertijo que abre una puerta en el barco. <strong>Objetos de equilibrio</strong> movibles. <strong>Notas o pistas</strong> repartidas por el entorno sobre cómo usar las llaves y equilibrar el barco.</dd>
+      <dt>Mecánicas</dt><dd><strong>Reunión de personajes</strong>: mover a cada miembro a su posición correcta. <strong>Puzzles ambientales</strong> para usar las llaves y activar mecanismos. <strong>Equilibrio del barco</strong>: gestionar la distribución del peso para evitar que se hunda.</dd>
+      <dt>Flujo</dt><dd><ol class="flow">
+        <li>La madre llega desde la popa y el hijo con el vecino, mientras el padre y la hija entran por el túnel de la casona.</li>
+        <li>Se reúne a todos los miembros en el barco.</li>
+        <li>Se encuentran y usan las dos llaves en el lugar correcto.</li>
+        <li>Una de las rocas que sostenían el barco cede: hay que equilibrarlo moviendo objetos y parando a los miembros en lugares estratégicos.</li>
+        <li>Equilibrado el barco, se desbloquea la fase final.</li>
+      </ol></dd>
+      <dt>Feedback</dt><dd>Indicadores visuales que resaltan objetos interactivos y las posiciones donde deben ubicarse los personajes. Animaciones de reacción —frustración o alegría según el resultado—. Sonido de las llaves al desbloquear, ruidos de equilibrio y diálogos de los personajes.</dd>
+      <dt>Recursos</dt><dd><strong>Arte</strong> — entorno marino detallado con cubierta y popa; diseño de las dos llaves y elementos interactivos; gráficos del equilibrio del barco con animaciones de objetos cayendo al mar. <strong>Programación</strong> — sistema de posicionamiento de personajes, puzzles de objetos y llaves, y un sistema que detecte la distribución del peso y ajuste las condiciones del barco. <strong>QA</strong> — verificación de todas las interacciones, pruebas de la mecánica de equilibrio y rendimiento en distintos dispositivos.</dd>
+    </dl>
+  </article>
+</section>
+
+<!-- ============ 12 CONVEYANCE ============ -->
+<section id="conveyance">
+  <div class="sec__head"><span class="sec__num">12</span><h2>Conveyance</h2><span class="chip chip--ok">Completo</span></div>
+  <div class="wrap"><p>Cómo el juego comunica al jugador qué hacer sin decírselo.</p>
+  <ul class="plain">
+    <li><strong>Diseño ambiental y pistas visuales.</strong> Iluminación, arquitectura y objetos clave guían de manera intuitiva, sin instrucciones explícitas.</li>
+    <li><strong>Diálogos y pistas auditivas.</strong> Conversaciones contextuales y efectos ambientales dan orientación sutil sin romper la inmersión.</li>
+    <li><strong>Objetos diegéticos.</strong> El diario forma parte del mundo del juego y entrega a la vez trama y pistas para resolver desafíos.</li>
+    <li><strong>Interfaz minimalista.</strong> Los elementos interactivos solo se destacan cuando es necesario.</li>
+    <li><strong>Tutoriales orgánicos.</strong> Las mecánicas se introducen gradualmente a través de la exploración natural, sin interrupciones formales.</li>
+    <li><strong>NPCs como guías.</strong> Personajes secundarios orientan de forma indirecta, con comentarios o comportamientos que insinúan cómo progresar.</li>
+    <li><strong>Cinemáticas narrativas.</strong> Avanzan la historia y preparan al jugador para eventos clave, dando contexto emocional que afecta las decisiones.</li>
+    <li><strong>Puzzles contextuales.</strong> Los desafíos están integrados en la historia y el entorno; se resuelven con lógica ligada a la trama.</li>
+    <li><strong>Chat familiar.</strong> Simula la comunicación entre los miembros de la familia mientras cada uno está en un lugar distinto de la historia. Muestra pistas de forma diegética, y por él avanza también parte de la narrativa. Técnicamente lo sostiene <code>StoryManager</code>/<code>StoryFragment</code> (ver <a href="#tecnico">Técnico y desarrollo</a>).</li>
+  </ul></div>
+</section>
+
+<!-- ============ 13 TÉCNICO ============ -->
+<section id="tecnico">
+  <div class="sec__head"><span class="sec__num">13</span><h2>Técnico y desarrollo</h2><span class="chip chip--wip">Borrador</span></div>
+
+  <h3>Pantallas</h3>
+  <div class="wrap"><ul class="plain">
+    <li>Title screen</li><li>In-game</li><li>Inventario</li><li>Menú de opciones</li><li>Créditos</li>
+  </ul></div>
+
+  <h3>Base técnica: se reutiliza Tremblay AR</h3>
+  <div class="wrap stack">
+    <p>El estudio ya construyó y probó en producción el mismo <strong>loop pedagógico</strong> —descubrir → guardar → descifrar → completar— en <em>Tremblay AR</em>, el juego de realidad aumentada (Vuforia) del cuento «Halloween». Motor, sistema de misiones y sistema de historia se traen como base y se adaptan; lo que cambia de raíz es <strong>cómo se mueve y actúa el personaje</strong>: de apuntar la cámara a un Image Target y agarrar/colocar objetos en AR, a control directo en tercera persona —WASD, cámara orbital— sobre un elenco de personajes que caminan por los escenarios.</p>
+    <div class="note note--src">
+      <h4>Fuente</h4>
+      <p>Documentado en <code>tremblay ar/AR-tremblay-game/plan-desarrollo/</code>, especialmente <code>00-vision-general.md</code>. Referencia viva del código en <code>Tremblay-AR/Assets/Scripts</code>.</p>
+    </div>
+  </div>
+
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Pieza de Tremblay AR</th><th>Qué hace hoy</th><th>Cómo se adapta al Cofre Esmeralda</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Motor</strong></td><td>Unity 6, Vuforia Engine para AR, Input System nuevo, uGUI + TextMeshPro.</td><td>Se conserva Unity como motor. Se retira Vuforia por completo —no hay cámara ni realidad aumentada— y el Input System pasa a resolver movimiento WASD + cámara orbital en desktop, y controles virtuales en pantalla (joystick + botones táctiles) en móvil.</td></tr>
+        <tr><td><strong>GameObjectManager</strong></td><td>Fuente de verdad de los objetos del juego: nombre y color en ES/EN, audios, prefab, sprite, si el jugador ya lo guardó.</td><td>Mismo rol para cada objeto interactivo de los niveles: sustantivo + adjetivo en español, audio de pronunciación, sprite/prefab. Es la base directa de la mecánica <a href="#mecanicas">Interacción y aprendizaje</a> del Cofre Esmeralda.</td></tr>
+        <tr><td><strong>MissionManager + Mission (ScriptableObject)</strong></td><td>Misiones con partes de texto y «sockets» de drop, activación por dependencias (desde inicio / al guardar objeto / al descifrar otra misión), y dos fases: descifrado (UI, arrastrar y soltar) y completado (AR, agarrar y colocar sobre un target).</td><td>El descifrado UI ya <em>es</em> la mecánica <strong>Descifrar</strong> del GDD (arrastrar imagen a socket, «La puerta del ángel en el convento»). La fase de completado deja de ser «colocar sobre un Image Target en AR» y pasa a ser «llevar el objeto al lugar correcto del escenario, caminando hasta ahí» —incluye a los NPCs y palancas de los niveles 05–10—. El sistema de dependencias entre misiones (<code>tipoActivacion</code>, <code>misionRequeridaID</code>) sirve tal cual para encadenar los diez niveles.</td></tr>
+        <tr><td><strong>StoryManager + StoryFragment</strong></td><td>Encola y reproduce fragmentos de historia narrativa (texto + audio), namespaced por cuento, sin repetir lo ya visto.</td><td><strong>Confirmado:</strong> simula el <a href="#mecanicas">chat familiar</a>. Cada nivel se juega con un personaje o pareja distinta, y en ciertos momentos <code>fragmentoAlDescifrar</code> / <code>fragmentoAlCompletar</code> dispara un fragmento como mensaje de chat de quien esté en otra parte de la historia, dando contexto o ayuda. Namespacing por cuento pasa a ser namespacing por nivel/capítulo.</td></tr>
+        <tr><td><strong>Multi-cuento (<code>CuentoActual</code>, filtros <code>cuentos[]</code>)</strong></td><td>Objetos y misiones se filtran por <code>cuentoID</code>; el progreso de historia se guarda por cuento.</td><td>El Cofre Esmeralda no es una colección de cuentos sino una campaña de 10 niveles, pero el mismo mecanismo de filtrado sirve para separar el contenido —vocabulario, misiones, fragmentos— por nivel en lugar de por cuento.</td></tr>
+        <tr><td><strong>Persistencia JSON</strong></td><td><code>objetos_guardados.json</code> (objetos + misiones descifradas/completadas), <code>story_progress_&lt;cuento&gt;.json</code>, sembrados desde <code>StreamingAssets</code>.</td><td>Mismo esquema de guardado sirve para el diario de vocabulario y el progreso de niveles del Cofre Esmeralda.</td></tr>
+        <tr><td><strong>Feedback de misión</strong></td><td>Mensaje detallado al comprobar: distingue objetos correctos, mal colocados (swap), incorrectos y vacíos.</td><td>Aplica igual a los puzzles de descifrar de cada nivel —por ejemplo, el acertijo de la fuente de las sirenas o el enigma final de los túneles.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>El controlador de personaje ya tiene prototipo propio</h3>
+  <div class="wrap stack">
+    <p>En Tremblay AR el jugador no mueve un personaje: apunta la cámara y agarra/suelta objetos sobre marcadores físicos. El Cofre Esmeralda necesita control real de personaje en tercera persona, y a diferencia del resto de sistemas, <strong>esta pieza no viene de Tremblay AR pero ya tiene su propio prototipo</strong> en <code>My project/Assets/Scripts/Player/</code> — un proyecto Unity aparte, específico del Cofre Esmeralda.</p>
+  </div>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Script</th><th>Qué resuelve</th></tr></thead>
+      <tbody>
+        <tr><td><code>PlayerStateMachine</code></td><td>Máquina de estados del personaje: <code>Locomotion</code> / <code>Air</code> / <code>Crouch</code> / <code>Ladder</code>, sobre <code>CharacterController</code>.</td></tr>
+        <tr><td><code>PlayerInputReader</code></td><td>Lee el nuevo Input System (<code>PlayerControls.IPlayerActions</code>): movimiento, mirada, sprint, agachado y salto — ya mapeado a WASD/Shift/Ctrl/Espacio.</td></tr>
+        <tr><td><code>PlayerLocomotion</code></td><td>Movimiento relativo a la cámara con suavizado de velocidad y rotación.</td></tr>
+        <tr><td><code>PlayerGravityJump</code></td><td>Salto con coyote time y jump buffer.</td></tr>
+        <tr><td><code>GroundChecker</code> / <code>LedgeAssist</code></td><td>Detección de suelo y asistencia en bordes/repisas.</td></tr>
+        <tr><td><code>LadderController</code> / <code>LadderZone</code></td><td>Subir y bajar escaleras — directamente aprovechable en la escalera en espiral del Nivel 08.</td></tr>
+        <tr><td><code>PlayerAnimator</code></td><td>Puente a los parámetros del Animator (velocidad, salto, agachado, trepado).</td></tr>
+        <tr><td><code>PlayerConfig</code> (ScriptableObject)</td><td>Velocidades de caminar/correr/agachado, altura de salto y gravedad configurables sin tocar código.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wrap stack">
+    <p>Lo que sí sigue sin prototipo:</p>
+    <ul class="plain">
+      <li><strong>Cámara orbital en tercera persona</strong> — el controlador ya mueve al personaje relativo a una cámara, pero el orbit/rig de cámara en sí no está entre estos scripts.</li>
+      <li><strong>Controles virtuales para móvil</strong> — <code>PlayerInputReader</code> usa el Input System nuevo, que sí soporta bindings táctiles, pero el joystick/botones en pantalla no están implementados.</li>
+      <li><strong>Control dual</strong> — el Nivel 07 requiere alternar entre padre e hija con habilidades distintas; no hay precedente ni en Tremblay AR ni en este prototipo.</li>
+      <li><strong>Sigilo</strong> — barra de detección, rutas de patrulla e IA de NPCs para el Nivel 05.</li>
+    </ul>
+  </div>
+
+  <h3>Decisiones abiertas</h3>
+  <ul class="todo-list wide">
+    <li><b>Layout de controles virtuales</b><span>Confirmado el enfoque —joystick + botones táctiles en móvil, teclado en desktop—; falta el layout concreto en pantalla: posición del joystick, tamaño y ubicación de los botones de correr/agacharse/saltar/interactuar, y cómo conviven con el inventario y el diario en pantallas pequeñas.</span></li>
+    <li><b>Cámara orbital</b><span>El controlador de personaje ya existe; falta el rig de cámara orbital que lo acompañe.</span></li>
+    <li><b>Disparador de las cinemáticas</b><span><code>StoryManager</code> ya tiene dueño confirmado —el chat familiar—. Falta decidir con qué sistema se disparan las seis cinemáticas del pasado del Capitán: ¿el mismo <code>StoryManager</code> con un canal distinto al del chat, o un reproductor de cinemáticas aparte? Ver el mapeo en <a href="#tramas">Las dos líneas temporales</a>.</span></li>
+    <li><b>Persistencia de vocabulario</b><span>El diario y las condiciones de victoria dependen de un registro de palabras aprendidas. El esquema JSON de <code>objetos_guardados.json</code> es punto de partida directo; falta extenderlo a los sustantivos/adjetivos por nivel.</span></li>
+    <li><b>El banquete — detalles de interacción</b><span>La caza de ranas tiene prototipo funcional; El banquete tiene diseño de flujo completo (descifrar receta → alacena → preparar → plato o pérdida de ingredientes) pero faltan los gestos concretos de cortar/hervir/machacar/mezclar, el número de recetas y si el tiempo de cocción corre en tiempo real. Ver <a href="#niveles">Nivel 03 · La casona</a>.</span></li>
+    <li><b>Deuda técnica heredada</b><span>Tremblay AR documenta un patrón deliberado de singletons «last-wins» (no cambiarlo sin entender la consecuencia, ver <code>InputRouter.Awake()</code>) y pendientes de audio ES/EN sin diferenciar. Vale la pena revisar si aplican igual al nuevo proyecto o se resuelven de una vez.</span></li>
+  </ul>
+
+  <div class="note note--src">
+    <h4>Ya decidido en otras secciones</h4>
+    <p><strong>Carga por áreas</strong> al cruzar puertas, para optimizar memoria y evitar cargas largas. <strong>Accesibilidad</strong>: tipografía clara y de tamaño ajustable. <strong>Optimización móvil</strong> verificada por QA en cada nivel. <strong>Motor:</strong> Unity, heredado de Tremblay AR. <strong>Plataformas:</strong> Android e iOS con controles virtuales táctiles, y build de desktop con teclado (WASD/Shift/Ctrl/Espacio) y ratón para la cámara.</p>
+  </div>
+</section>
+
+<!-- ============ 14 ARTE Y AUDIO ============ -->
+<section id="arte">
+  <div class="sec__head"><span class="sec__num">14</span><h2>Arte y audio</h2><span class="chip chip--todo">Por definir</span></div>
+
+  <h3>Estilo visual</h3>
+  <div class="wrap stack">
+    <p>Cartoon estilizado sobre base low-poly con texturas pintadas a mano, en la línea de <em>Arcane</em>. Arte estilizado de referentes reales de Cartagena. Paleta vibrante y iluminación suave; los escenarios evolucionan de lo histórico-cotidiano a lo mágico conforme avanza la historia. Las cinemáticas usan un registro distinto: paneles de cómic animado.</p>
+  </div>
+
+  <h3>Lo que falta especificar</h3>
+  <ul class="todo-list wide">
+    <li><b>UI / HUD</b><span>Sin definir. Debe cubrir al menos: inventario persistente, ícono de diario, ícono de cámara, barra de detección del Nivel 05, contadores del Nivel 03 y 09, y el pop-up de descifrar.</span></li>
+    <li><b>Lista de assets — personajes</b><span>Sin consolidar. Hay 4 protagonistas jugables, Leti, el vecino y su personal, y unos 15 NPCs listados, cada uno con su set de animaciones por definir.</span></li>
+    <li><b>Lista de assets — entornos</b><span>Diez niveles con espacios ya descritos nivel por nivel, pero sin lista consolidada ni estimación.</span></li>
+    <li><b>Lista de assets — props</b><span>Cada objeto interactivo necesita además su par sustantivo + adjetivo y su locución en español.</span></li>
+    <li><b>Material promocional</b><span>Sin definir.</span></li>
+    <li><b>Estilo musical</b><span>Cada nivel especifica su intención sonora, pero falta la dirección musical global y la lista de tracks.</span></li>
+    <li><b>Efectos de sonido</b><span>Sin lista consolidada; hay efectos descritos en cada nivel y en las seis cinemáticas.</span></li>
+    <li><b>Voz</b><span>Sin definir. Es crítico: todo el vocabulario del juego y las seis cinemáticas van locutados en español. Falta decidir número de voces, casting y acento.</span></li>
+  </ul>
+</section>
+
+<!-- ============ 15 ALCANCE ============ -->
+<section id="alcance">
+  <div class="sec__head"><span class="sec__num">15</span><h2>Alcance y equipo</h2><span class="chip chip--wip">Borrador</span></div>
+
+  <h3>Plataformas</h3>
+  <div class="wrap"><p>Android e iOS con controles virtuales táctiles, y build de desktop con teclado y ratón.</p></div>
+
+  <h3>Equipo</h3>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Persona</th><th>Rol</th><th>Responsabilidad</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Jaime Meza</strong></td><td>Director de proyecto</td><td>Coordinación y gestión de proyecto</td></tr>
+        <tr><td><strong>Patricia Domínguez</strong></td><td>Desarrollo pedagógico</td><td>Implementación de mecánicas de enseñanza</td></tr>
+        <tr><td><strong>Mateo Meza</strong></td><td>Level designer</td><td>Modelado y montaje de niveles</td></tr>
+        <tr><td><strong>Cristian Vak</strong></td><td>Artista 2D</td><td>Arte conceptual, de niveles y props</td></tr>
+        <tr><td><strong>Juan José</strong></td><td>Modelador 3D</td><td>Modelado 3D de personajes, entornos y props</td></tr>
+        <tr><td><strong>Thomas</strong></td><td>Programador</td><td>Desarrollo de gameplay e interfaz</td></tr>
+        <tr><td><strong>Toby</strong></td><td>Programador</td><td>Desarrollo de gameplay e interfaz</td></tr>
+        <tr><td><strong>Luisa</strong></td><td>Diseñadora</td><td>Por especificar — diseño de juego / UI</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Sin definir</h3>
+  <ul class="todo-list wide">
+    <li><b>Apellidos del equipo</b><span>Juan José, Thomas, Toby y Luisa quedaron registrados solo con nombre.</span></li>
+    <li><b>Alcance de Luisa</b><span>Rol de «diseñadora» sin especificar: diseño de niveles, de UI/UX o diseño narrativo.</span></li>
+    <li><b>Escala de tiempo</b><span>Sin fechas. El cronograma del documento sigue en plantilla.</span></li>
+    <li><b>Duración de partida</b><span>Sin estimar. Solo el Nivel 04 tiene duración declarada: 2–3 minutos.</span></li>
+    <li><b>Costo</b><span>Sin presupuesto.</span></li>
+    <li><b>Cronograma</b><span>Tareas y entregables por definir. Hitos de versión ya nombrados: Prototype, Alpha, Beta, Release.</span></li>
+  </ul>
+</section>
+
+<!-- ============ 16 NEGOCIO ============ -->
+<section id="negocio">
+  <div class="sec__head"><span class="sec__num">16</span><h2>Monetización</h2><span class="chip chip--wip">Borrador</span></div>
+  <div class="wrap">
+    <p>El juego será <strong>pay to play</strong>. Alrededor del producto principal:</p>
+    <ul class="plain">
+      <li><strong>Patreon</strong> — perfil del proyecto para la comunidad que sigue el desarrollo.</li>
+      <li><strong>Web interactiva</strong> con minijuegos, historia y arte, para uso escolar.</li>
+      <li><strong>Papercraft y plegables</strong> como material físico complementario.</li>
+      <li><strong>E-commerce</strong> con merchandising.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 17 PENDIENTES ============ -->
+<section id="pendientes">
+  <div class="sec__head"><span class="sec__num">17</span><h2>Pendientes del documento</h2><span class="chip chip--wip">Vivo</span></div>
+  <div class="wrap"><p>Lista de trabajo consolidada, ordenada por lo que bloquea más decisiones aguas abajo.</p></div>
+
+  <h3>Narrativa</h3>
+  <ul class="todo-list wide">
+    <li><b>Validar el mapeo de bisagras</b><span>Confirmar o reordenar la propuesta de 6 cinemáticas sobre las 10 transiciones posibles entre niveles. Ver <a href="#tramas">Las dos líneas temporales</a>.</span></li>
+    <li><b>Transiciones sin cinemática</b><span>02→03, 06→07 y 08→09 quedan como avance puramente en presente en la propuesta actual. Confirmar si es correcto.</span></li>
+    <li><b>Vecino ↔ mestizo</b><span>Decidir si el vecino desciende del mestizo y en qué nivel se revela.</span></li>
+    <li><b>Gorrión en el presente</b><span>Está listado como antagonista actual pero muere en la Cinemática #2. Definir su estatus.</span></li>
+    <li><b>Nombre del Capitán</b><span>Protagonista de cinco cinemáticas, todavía sin nombre propio.</span></li>
+    <li><b>Un cuento para Lucía</b><span>Étienne, Éliane y Julien tienen cuento propio; ella no. Con su arco ya definido, es el material que falta para emparejarla con el resto.</span></li>
+    <li><b>Actualizar el cuento de Navidad</b><span>Llama «Tommy» al niño de principio a fin; hay que cambiarlo a Julien para que no contradiga al GDD.</span></li>
+  </ul>
+
+  <h3>Diseño</h3>
+  <ul class="todo-list wide">
+    <li><b>Currículo de vocabulario</b><span>No existe la lista de sustantivos y adjetivos por nivel, aunque las condiciones de victoria dependen de ella.</span></li>
+    <li><b>Resolución del acertijo de la fuente</b><span>El Nivel 03 deja el paso «Resolución del acertijo» marcado con un signo de interrogación en el original.</span></li>
+    <li><b>Minijuego de cocina</b><span>Confirmado el concepto —recolectar ingredientes y preparar recetas—, en el mismo Nivel 03. Falta el diseño concreto: cuántas recetas, cómo se combinan/ordenan los ingredientes, y si hay presión de tiempo como en la caza de ranas.</span></li>
+    <li><b>Registro de terror del Nivel 06</b><span>Conciliar el suspenso pedido con la clasificación E / PEGI 7.</span></li>
+    <li><b>El dron en los Niveles 05 y 09</b><span>Confirmado como herramienta del minijuego de la fuente (Nivel 03). Julien también juega el nivel de sigilo (05) y el contrarreloj del fuerte (09): falta definir qué hace ahí el dron —explorar rutas de patrulla y cámaras, distraer, alcanzar sitios inaccesibles— y si tiene límites (batería, alcance, ruido) que lo vuelvan un recurso a administrar.</span></li>
+    <li><b>Controles del dron</b><span>Pilotarlo es un modo de control distinto al del personaje a pie. Definir cómo se entra y sale de ese modo, y su esquema en teclado y en controles virtuales.</span></li>
+    <li><b>Personaje jugable de los Niveles 04 y 08</b><span>Los demás niveles lo declaran; estos dos no.</span></li>
+  </ul>
+
+  <h3>Producción</h3>
+  <ul class="todo-list wide">
+    <li><b>Controlador de personaje en tercera persona</b><span>Ya tiene prototipo funcional (movimiento, salto, agachado, escaleras) en <code>My project/Assets/Scripts/Player/</code>. Faltan la cámara orbital, los controles virtuales para móvil, el control dual (Nivel 07) y el sigilo (Nivel 05). Ver <a href="#tecnico">Técnico y desarrollo</a>.</span></li>
+    <li><b>Sistema de chat familiar</b><span><code>StoryManager</code>/<code>StoryFragment</code> de Tremblay AR se adapta para simular el chat entre los miembros de la familia: cada nivel se juega con un personaje distinto y en ciertos momentos se dispara un fragmento como mensaje de chat que da contexto o ayuda desde quien está en otra parte de la historia.</span></li>
+    <li><b>Disparador de cinemáticas</b><span>Aún sin resolver si usa el mismo <code>StoryManager</code> por un canal separado del chat, o un sistema distinto, para las seis cinemáticas del pasado según el mapeo de <a href="#tramas">Las dos líneas temporales</a>.</span></li>
+    <li><b>Dirección de voz</b><span>Todo el vocabulario y las seis cinemáticas van locutados.</span></li>
+    <li><b>Listas de assets</b><span>Personajes, entornos, props y promocional.</span></li>
+    <li><b>Cronograma y presupuesto</b><span>En plantilla desde v1.0.</span></li>
+  </ul>
+
+  <h3>Historial de versiones</h3>
+  <div class="tbl-scroll wide">
+    <table>
+      <thead><tr><th>Versión</th><th>Hito</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">V1.0</td><td>Prototype</td><td>Documento base, 10-09-2024</td></tr>
+        <tr><td class="mono">V1.1</td><td>Alpha</td><td>Por definir</td></tr>
+        <tr><td class="mono">V1.2</td><td>Beta</td><td>Por definir</td></tr>
+        <tr><td class="mono">V1.3</td><td>Release</td><td>Por definir</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <span>Media Tech Tucán © 2024</span>
+  <span>Hola Spanish Classes · Game Crafters</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var map = {};
+  links.forEach(function(a){
+    var el = document.querySelector(a.getAttribute('href'));
+    if(el){ map[el.id] = a; }
+  });
+  var ids = Object.keys(map);
+  if(!ids.length || !('IntersectionObserver' in window)) return;
+  var visible = {};
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+    var current = null;
+    for(var i=0;i<ids.length;i++){ if(visible[ids[i]]){ current = ids[i]; break; } }
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if(current && map[current]) map[current].classList.add('on');
+  }, {rootMargin:'-10% 0px -75% 0px', threshold:0});
+  ids.forEach(function(id){ obs.observe(document.getElementById(id)); });
+})();
+</script>
