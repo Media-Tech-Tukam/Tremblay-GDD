@@ -185,6 +185,29 @@ td.mono{font-family:var(--mono);font-size:11.5px;color:var(--ink-500);white-spac
 .card__role{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--esm);font-weight:600;margin-top:5px;display:block}
 .card p{margin-top:10px;font-size:13.4px;line-height:1.55;color:var(--ink-500)}
 .card--anta .card__role{color:var(--lat)}
+.card--clickable{cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;position:relative}
+.card--clickable:hover,.card--clickable:focus-visible{transform:translateY(-2px);box-shadow:0 10px 28px -10px rgba(16,26,23,.28)}
+.card__hint{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--esm-ink);font-weight:600}
+
+/* ---------- character modal ---------- */
+.char-modal-overlay{position:fixed;inset:0;background:rgba(8,14,12,.6);backdrop-filter:blur(2px);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:5vh 20px;overflow-y:auto}
+.char-modal-overlay[hidden]{display:none}
+.char-modal{background:var(--surface);border-radius:12px;box-shadow:0 30px 70px -16px rgba(0,0,0,.5);max-width:1120px;width:100%;position:relative;display:grid;grid-template-columns:380px minmax(0,1fr);overflow:hidden;margin:auto}
+.char-modal__close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);color:var(--ink-700);font-size:20px;line-height:1;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;padding:0}
+.char-modal__close:hover{background:var(--surface-2);color:var(--ink-900)}
+.char-modal__portrait{position:relative;background:var(--surface-2);min-height:380px}
+.char-modal__portrait img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+.char-modal__fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--title);font-size:110px;color:var(--esm-ink);background:linear-gradient(160deg,var(--esm-soft),var(--surface-2))}
+.char-modal__body{padding:40px 44px;overflow-y:auto;max-height:88vh}
+.char-modal__body h4{font-size:27px;margin-bottom:3px;font-variation-settings:normal}
+.char-modal__body .card__role{font-size:10.5px;margin:5px 0 18px}
+.char-modal__body p{font-size:14.8px;line-height:1.68;color:var(--ink-700);margin-top:13px}
+.char-modal__body .card__hint{display:none}
+@media (max-width:780px){
+  .char-modal{grid-template-columns:1fr}
+  .char-modal__portrait{min-height:240px}
+  .char-modal__body{padding:28px 24px;max-height:none}
+}
 .npc-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
 .npc{font-size:12.5px;background:var(--surface-2);border:1px solid var(--rule);border-radius:99px;padding:4px 12px;color:var(--ink-500)}
 
@@ -801,15 +824,16 @@ footer span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-tran
   <div class="wrap stack">
     <p>Nombres y personalidades consolidados a partir del documento de nombres y de los tres cuentos de la familia —<em>Halloween</em>, <em>Navidad</em> y <em>El conejo de Pascua</em>—, donde ya aparecen en acción. Cada cuento retrata a un miembro distinto: Éliane en Halloween y en Pascua, Julien en Navidad, Étienne en Pascua.</p>
   </div>
-  <div class="cast">
-    <div class="card">
+  <div class="cast" id="cast-familia">
+    <div class="card card--clickable" data-slug="etienne" data-img="images/personajes/etienne.jpg" tabindex="0" role="button" aria-haspopup="dialog">
       <h4>Étienne Tremblay · Papá</h4><span class="card__role">Jugable · Nivel 07</span>
       <p><strong>Profesor universitario de historia</strong>, autor de libros — con todas las credenciales en regla. Lo que lo distingue no es su formación sino <strong>dónde pone los ojos</strong>: le interesa más la pequeña nota al margen que el grueso del texto histórico. Ahí es donde encuentra lo que nadie más busca.</p>
       <p><strong>Le gusta lo raro y no duda en investigar el mito.</strong> Su amor por los piratas viene precisamente de que esas historias siempre llegan tras un velo mítico, donde lo real y lo mágico cuentan la historia juntos. No persigue leyendas por credulidad: las persigue porque sabe que el mito guarda un hecho adentro. Eso lo pone en el centro exacto del misterio del Cofre Esmeralda.</p>
       <p><strong>Racionalista, no escéptico.</strong> Ante lo imposible siempre encuentra explicación física —«debe ser la presión»— y se emociona por el hallazgo intelectual, no por la magia. La tensión con su hija es el motor del dúo: <em>él cree que detrás del mito hay un hecho; ella está dispuesta a creer en el mito mismo</em>. Se absorbe tanto en sus mapas que pasa por alto lo que ocurre delante de sus ojos, y es Éliane quien lo ve. Cariñoso y sin condescendencia con ella: «adoro tu imaginación».</p>
       <p><strong>Seña visual:</strong> su deshilachado gorro de explorador, que se pone al montar su pequeño campamento de investigación. Más canadiense que los alces; adora la tranquilidad y seguridad de su país.</p>
+      <span class="card__hint">Ver ficha completa →</span>
     </div>
-    <div class="card">
+    <div class="card card--clickable" data-slug="eliane" data-img="images/personajes/eliane.jpg" tabindex="0" role="button" aria-haspopup="dialog">
       <h4>Éliane Tremblay · Hija, 16 años</h4><span class="card__role">Jugable · Nivel 07</span>
       <p><strong>La que observa.</strong> Su gran virtud es notar los patrones que su padre pasa por alto: que los conejos guardianes vigilan, que se mueven coordinados, que el color de las flores que cargan decide a qué entrada van. Deduce por otro camino que él: «una entrada importante no se mostraría con facilidad, estaría oculta» — y busca en el lugar menos evidente.</p>
       <p><strong>Dispuesta a creer.</strong> Le encantan las tardes en el estudio de su padre: el olor a papel viejo, su voz narrando aventuras. Si él puede creer en tesoros imposibles, ella puede creer en conejos mágicos, al menos por un rato.</p>
@@ -817,20 +841,23 @@ footer span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-tran
       <p><strong>Valiente y recursiva bajo presión.</strong> En el cuento de Halloween acepta un reto para demostrar su valentía y termina cayendo al sótano de una casa que resulta ser el hogar de una bruja. En vez de huir a ciegas: usa la linterna del móvil, y cuando se agota la batería enciende una vela y con ella un farol antiguo; deduce lo que la bruja busca y le deja el gorro y la escoba a la vista para que se marche; y calla al gato lanzándole un trozo de carne seca que llevaba en el bolsillo — el tipo de cosa que solo lleva encima alguien acostumbrada a acampar.</p>
       <p><strong>Seña visual:</strong> diadema con orejas y flores en el pelo.</p>
       <p><strong>Nota de continuidad:</strong> Éliane es la protagonista del cuento de Halloween, que es el que ya está implementado como cuento jugable en <em>Tremblay AR</em>. Los dos proyectos comparten personaje.</p>
+      <span class="card__hint">Ver ficha completa →</span>
     </div>
-    <div class="card">
+    <div class="card card--clickable" data-slug="julien" data-img="images/personajes/julien.jpg" tabindex="0" role="button" aria-haspopup="dialog">
       <h4>Julien Tremblay · Hijo, 12 años</h4><span class="card__role">Jugable · Niveles 03, 05, 09</span>
       <p><strong>Inventor de cuarto desordenado.</strong> Desde siempre ha adorado la tecnología; pasa horas en su magnífico taller improvisado ensamblando aparatos curiosos. Su método: un dron, camaritas tomadas sin permiso de las cosas de su papá, <strong>mucha cinta adhesiva</strong> y algo de pintura para decorar. También fabrica espadas «súper futuristas» de cartón con LEDs sacados de juguetes dañados.</p>
       <p><strong>Tenaz hasta lo obsesivo.</strong> Cuando se plantea una misión —descubrir quién se come las galletas de tortuga— vigila el día entero hasta quedarse dormido frente a la pantalla. Cuenta atrás ritual antes de cada lanzamiento: «3, 2, 1… ignición».</p>
       <p><strong>Blando por dentro.</strong> Separa las galletas con forma de tortuga en un frasco aparte para salvarlas, porque le parecen adorables. Prefiere lo moderno a lo tradicional, pero aprende a valorar lo hecho a mano. Su hermana mayor lo molesta sin tregua y él le sigue el juego.</p>
       <p><strong>Su dron.</strong> Es su compañero permanente y su herramienta en todos sus niveles. Tiene forma de tortuga, cámara, y está unido con mucha cinta. Julien lo trata como si tuviera conciencia — <em>y lo parece</em>. El juego nunca aclara si es solo su imaginación o si el dron realmente la tiene, y <strong>nunca lo va a explicar</strong>.</p>
       <p><strong>Nota:</strong> su archienemigo declarado es <em>el loro de la vecina</em>, con el que ya ha tenido problemas.</p>
+      <span class="card__hint">Ver ficha completa →</span>
     </div>
-    <div class="card">
+    <div class="card card--clickable" data-slug="lucia" data-img="images/personajes/lucia.jpg" tabindex="0" role="button" aria-haspopup="dialog">
       <h4>Lucía Gagnon · Mamá</h4><span class="card__role">Jugable · Nivel 06</span>
       <p><strong>El personaje que más cambia.</strong> Su vida acomodada en Canadá la oprimía, y de ahí viene su personalidad acelerada e impulsiva: energía sin cauce, una líder sin territorio. Al desatarse la aventura del cofre, Lucía encaja —rompe su cáscara, se siente libre y toma el liderazgo de su familia—. No es que aprenda a liderar: es que por fin está donde su forma de ser sirve para algo.</p>
       <p><strong>Líder nata</strong>, se le facilita hablar con las personas. Su abuela es colombiana; su madre nació en Canadá, al igual que ella. Sabe muy poco español — la ironía que sostiene su arco: lo que va a recuperar no es solo un cofre, es un idioma y un linaje que se le diluyeron por el camino.</p>
       <p><strong>Es la razón de que la familia esté en la historia.</strong> La sangre colombiana —y el vínculo con el Capitán— entran a los Tremblay por su lado. Sin Lucía no hay herencia, ni casona, ni cofre.</p>
+      <span class="card__hint">Ver ficha completa →</span>
     </div>
   </div>
 
@@ -1864,6 +1891,63 @@ footer span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-tran
 
 </main>
 </div>
+
+<div class="char-modal-overlay" id="charModalOverlay" hidden>
+  <div class="char-modal" role="dialog" aria-modal="true" aria-labelledby="charModalName">
+    <button class="char-modal__close" id="charModalClose" aria-label="Cerrar ficha">✕</button>
+    <div class="char-modal__portrait">
+      <img id="charModalImg" alt="">
+      <div class="char-modal__fallback" id="charModalFallback">?</div>
+    </div>
+    <div class="char-modal__body" id="charModalBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('charModalOverlay');
+  var closeBtn = document.getElementById('charModalClose');
+  var imgEl = document.getElementById('charModalImg');
+  var fallbackEl = document.getElementById('charModalFallback');
+  var bodyEl = document.getElementById('charModalBody');
+  var lastFocused = null;
+
+  function openModal(card){
+    var h4 = card.querySelector('h4');
+    var initial = h4 ? h4.textContent.trim().charAt(0) : '?';
+    bodyEl.innerHTML = card.innerHTML;
+    fallbackEl.textContent = initial;
+    imgEl.removeAttribute('src');
+    imgEl.hidden = true;
+    fallbackEl.hidden = false;
+    var src = card.getAttribute('data-img');
+    if(src){
+      imgEl.onload = function(){ imgEl.hidden = false; fallbackEl.hidden = true; };
+      imgEl.onerror = function(){ imgEl.hidden = true; fallbackEl.hidden = false; };
+      imgEl.src = src;
+    }
+    lastFocused = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeModal(){
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    imgEl.removeAttribute('src');
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#cast-familia .card--clickable'), function(card){
+    card.addEventListener('click', function(){ openModal(card); });
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(card); }
+    });
+  });
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) closeModal(); });
+})();
+</script>
 
 <script>
 (function(){
